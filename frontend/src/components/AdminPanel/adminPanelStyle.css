@@ -1,0 +1,70 @@
+.wrap-role-manage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.role-manage {
+    display: flex;
+    justify-content: center;
+    background: lightgoldenrodyellow;
+    flex-direction: column;
+    padding: 30px;
+    border-bottom-right-radius: 60px;
+}
+
+.role-manage > p, label, input, button {
+    margin: 5px;
+}
+
+.role-manage > button {
+    background: orange;
+    color: black;
+    font-size: 20px;
+}
+
+.role-manage > button:hover {
+    cursor: pointer;
+}
+
+
+.li-usernames {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.ul-usernames {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 30px 20px;
+}
+
+.p-fetch-usernames {
+    align-content: center;
+    color: orange;
+    font-size: 40px;
+    border-bottom: 3px solid orange;
+    margin: 20px;
+}
+
+.wrap-role-manage {
+    margin: 30px;
+}
+
+.error-admin {
+    border-bottom: 3px solid red;
+    width: fit-content;
+    align-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    font-size: 30px;
+    color: orange;
+}
+
+.li-usernames:hover{
+    cursor: text;
+}

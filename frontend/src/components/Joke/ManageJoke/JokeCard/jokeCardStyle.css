@@ -1,0 +1,33 @@
+.main-section {
+    background: lightgoldenrodyellow;
+    color: black;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    word-break: break-all;
+}
+
+.property {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.link {
+    padding: 10px;
+    border-radius: 30px;
+    background: #03e9f4;
+    width: fit-content;
+    color: black;
+}
+
+.title {
+    border-bottom: 3px solid #03e9f4;
+
+}
+
+.content {
+    margin: 20px;
+}

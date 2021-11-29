@@ -1,0 +1,47 @@
+@import "https://use.fontawesome.com/releases/v5.15.1/css/all.css";
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn&display=swap');
+
+
+html, * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Vollkorn', serif, 'Montserrat', sans-serif;
+}
+
+.top {
+    /*position: sticky;*/
+    top: 0;
+    z-index: 1;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    font-weight: bold;
+    font-size: 18px;
+    border: white;
+    padding: 10px 20px 10px 20px;
+    background-color: beige;
+    border-radius: 30px;
+}
+
+.navbar {
+    background-color: beige;
+    padding: 10px;
+    color: orange;
+}
+
+li:hover {
+    background-color: lightslategray;
+    cursor: pointer;
+}
