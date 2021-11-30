@@ -26,7 +26,6 @@ const AdminPanel = () => {
         let formData = new FormData(e.target);
         let username = formData.get('username');
 
-
         deleteUser(username)
             .then(res => res.json())
             .then(data => {

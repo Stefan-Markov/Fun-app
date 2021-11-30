@@ -1,0 +1,16 @@
+.add-comment-wrap {
+    background: lightgoldenrodyellow;
+    margin: 60px auto;
+    width: 90%;
+    padding: 30px;
+    border-radius: 30px;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: row;
+}
+
+.add-comment-wrap label {
+    color: orange;
+    font-weight: bold;
+    font-size: 20px;
+}

@@ -68,5 +68,15 @@ export function getLastTheeJokes() {
     });
 }
 
+export function getJokesFromDbByKeyword(keyword){
+    return fetch(`${API_URL}/jokes-by-keyword/:${keyword}`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+}
+
 
 

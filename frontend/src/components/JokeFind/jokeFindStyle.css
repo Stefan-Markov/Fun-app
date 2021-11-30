@@ -1,0 +1,35 @@
+.search-keyword-wrap {
+    padding: 30px;
+    background: lightgoldenrodyellow;
+    border-radius: 30px;
+    width: 50%;
+    margin: 20px auto;
+    align-content: center;
+    align-items: center;
+}
+
+.div-search-keyword-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.div-search-keyword-wrap > label {
+    color: orange;
+    font-size: 30px;
+}
+
+.div-search-keyword-wrap > input {
+    border-radius: 30px;
+    width: 60%;
+    padding: 10px;
+}
+
+.search-keyword-wrap li {
+    background: orange;
+}
+.joke-read-link{
+    color: black;
+}
+
+

@@ -135,5 +135,16 @@ public class JokeController {
         return ResponseEntity.status(200).body(lastThree);
     }
 
+
+
+    @GetMapping("/jokes-by-keyword/:{keyword}")
+    @ResponseBody
+    public ResponseEntity<List<Joke>> getJokesByKeyword(@PathVariable String keyword) {
+        List<Joke> lastThree = this.jokeRepository.findAllByKeyword(keyword)
+                .stream()
+                .sorted(Comparator.comparing(Joke::getCreatedDate))
+                .limit(3).collect(Collectors.toList());
+        return ResponseEntity.status(200).body(lastThree);
+    }
 }
 

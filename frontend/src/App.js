@@ -12,7 +12,8 @@ import ManageJoke from "./components/Joke/ManageJoke/ManageJoke";
 import JokeById from "./components/Joke/JokeById/JokeById";
 import Account from "./components/Account/Account";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
-import JokeFind from "./components/JokeFind/jokeFind";
+import JokeFind from "./components/JokeFind/JokeFind";
+import Joke from "./components/JokeFind/Joke/Joke";
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
                     <Route path={`/account`} element={<Account/>}/>
                     <Route path={`/admin`} element={<AdminPanel/>}/>
                     <Route path={`/joke-find`} element={<JokeFind/>}/>
+                    <Route path={`/joke-read/:id`} element={<Joke/>}/>
                 </Routes>
                 <Footer/>
             </div>
