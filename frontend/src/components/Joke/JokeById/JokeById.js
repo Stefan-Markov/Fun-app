@@ -42,7 +42,8 @@ const JokeById = () => {
                     return;
                 }
                 navigate('/joke-manage')
-            }).catch(err => err);
+            })
+            .catch(err => err);
 
     }
 
@@ -59,9 +60,9 @@ const JokeById = () => {
         <>
             <h1>Edit joke</h1>
             <form onSubmit={onEdit}>
-                {fieldsCheck.allFields ? <div className="warning-edit">Fill all fields!</div> : ''}
+                {fieldsCheck.allFields ? <div className={"warnings-edit"}>Fill all fields!</div> : ''}
                 {dbError ? dbError
-                    .map(x => <div key={x} className="warnings-edit">{x.replaceAll(/[\\[\]]/g, '')}</div>) : ''}
+                    .map(x => <div key={x} className={"warnings-edit"}>{x.replaceAll(/[\\[\]]/g, '')}</div>) : ''}
 
                 <div className={'wrap'}>
                     <label>Title</label>

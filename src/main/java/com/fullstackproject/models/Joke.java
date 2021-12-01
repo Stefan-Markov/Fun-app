@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "jokes")
@@ -16,6 +17,19 @@ public class Joke extends BaseEntity {
     private String content;
     private User user;
     private String keyword;
+    private List<Comment> comments;
+    private String creator;
+    private LocalDateTime createdDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "joke")
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public Joke setComments(List<Comment> comments) {
+        this.comments = comments;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -29,8 +43,6 @@ public class Joke extends BaseEntity {
                 '}';
     }
 
-    private String creator;
-
     @Column(name = "creator")
     public String getCreator() {
         return creator;
@@ -40,8 +52,6 @@ public class Joke extends BaseEntity {
         this.creator = creator;
         return this;
     }
-
-    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "keyword")
     @Length(min = 3, message = "Keyword must be at least 3 symbols.")
@@ -78,7 +88,7 @@ public class Joke extends BaseEntity {
         return this;
     }
 
-    @Column(name = "content")
+    @Column(name = "content",columnDefinition = "TEXT")
     @NotNull(message = "Enter valid content!")
     @Length(min = 3, message = "Enter at least 3 symbols for content!")
     public String getContent() {

@@ -24,6 +24,7 @@ const JokeAdd = () => {
         }
 
         seTFieldsCheck({allFields: false});
+
         onCreate({
                 title, keyword, content,
                 username: sessionStorage.getItem('authenticatedUser')

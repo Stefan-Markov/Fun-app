@@ -2,7 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import '../Login/formStyle.css'
 import {useState} from "react";
 import * as userService from '../../api/UserService'
-import AuthenticationService from "../../api/AuthenticationService";
+import * as AuthenticationService from "../../api/AuthenticationService";
 
 const Register = ({onLogin}) => {
     let navigate = useNavigate();
@@ -54,9 +54,9 @@ const Register = ({onLogin}) => {
                 }
                 seTdbError([]);
                 AuthenticationService
-                    .executeJwtAuthenticationService(username, password)
+                    .authJwtService(username, password)
                     .then((response) => {
-                        AuthenticationService.registerSuccessfulLoginForJwt(username, response.data.token);
+                        AuthenticationService.login(username, response.data.token);
                         onLogin();
                         navigate('/');
                     });

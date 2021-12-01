@@ -13,7 +13,7 @@ public interface JokeRepository extends JpaRepository<Joke, String> {
     @Query("select j from  Joke  as j where  j.user.username = :username")
     List<Joke> findAllByUsername(String username);
 
-    @Query("select j from  Joke  as j order by j.createdDate asc")
+    @Query("select j from  Joke  as j order by j.createdDate desc")
     List<Joke> findLastThree();
 
     @Query("select j from Joke as j  where j.keyword like %:keyword%")

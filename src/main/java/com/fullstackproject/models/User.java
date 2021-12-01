@@ -21,6 +21,17 @@ public class User extends BaseEntity implements UserDetails {
     private LocalDateTime createdDate = LocalDateTime.now();
     private Set<Role> authorities;
     private List<Joke> joke;
+    private Likes likes;
+
+    @ManyToOne
+    public Likes getLikes() {
+        return likes;
+    }
+
+    public User setLikes(Likes likes) {
+        this.likes = likes;
+        return this;
+    }
 
     @OneToMany(mappedBy = "user")
     public List<Joke> getJoke() {

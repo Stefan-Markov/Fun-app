@@ -6,7 +6,7 @@ import {Routes, Route} from 'react-router-dom';
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout";
-import AuthenticationService from "./api/AuthenticationService";
+import * as AuthenticationService from "./api/AuthenticationService";
 import JokeAdd from "./components/Joke/JokeAdd/JokeAdd";
 import ManageJoke from "./components/Joke/ManageJoke/ManageJoke";
 import JokeById from "./components/Joke/JokeById/JokeById";

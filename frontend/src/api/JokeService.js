@@ -13,6 +13,18 @@ export function onCreate({title, content, keyword, username}) {
     });
 }
 
+export function onAddComment({content, jokeId, ownerOfComment}) {
+    let comment = {content, jokeId, ownerOfComment};
+    return fetch(`${API_URL}/add/comment/:${jokeId}`, {
+        method: 'POST',
+        body: JSON.stringify(comment),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+    });
+}
+
 export function getJokeByUsername() {
     let username = sessionStorage.getItem('authenticatedUser');
     return fetch(`${API_URL}/joke-manage/:${username}`,
@@ -68,7 +80,7 @@ export function getLastTheeJokes() {
     });
 }
 
-export function getJokesFromDbByKeyword(keyword){
+export function getJokesFromDbByKeyword(keyword) {
     return fetch(`${API_URL}/jokes-by-keyword/:${keyword}`,
         {
             method: 'GET',

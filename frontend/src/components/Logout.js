@@ -1,4 +1,4 @@
-import AuthenticationService from "../api/AuthenticationService";
+import * as AuthenticationService from "../api/AuthenticationService";
 import {Navigate} from "react-router-dom";
 
 const Logout = ({onLogout}) => {

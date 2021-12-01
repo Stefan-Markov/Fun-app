@@ -2,7 +2,7 @@ import './formStyle.css'
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from 'react'
 
-import AuthenticationService from "../../api/AuthenticationService";
+import * as AuthenticationService from "../../api/AuthenticationService";
 
 const Login = ({onLogin}) => {
 
@@ -14,9 +14,9 @@ const Login = ({onLogin}) => {
         let username = form.get('username');
         let password = form.get('password');
         AuthenticationService
-            .executeJwtAuthenticationService(username, password)
+            .authJwtService(username, password)
             .then((response) => {
-                AuthenticationService.registerSuccessfulLoginForJwt(username, response.data.token);
+                AuthenticationService.login(username, response.data.token);
 
                 onLogin();
                 navigate('/');

@@ -1,6 +1,7 @@
 package com.fullstackproject.web;
 
 import com.fullstackproject.errorHandling.ErrorRest;
+import com.fullstackproject.models.Comment;
 import com.fullstackproject.models.Joke;
 import com.fullstackproject.models.User;
 import com.fullstackproject.models.dto.JokeDTO;
@@ -44,7 +45,7 @@ public class JokeController {
     @PostMapping("/joke")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
-    public Object register(@RequestBody @Valid JokeDTO jokeData, BindingResult bindingResult) {
+    public Object createJoke(@RequestBody @Valid JokeDTO jokeData, BindingResult bindingResult) {
 
         Optional<User> user = this.userRepository.findByUsername(jokeData.getUsername());
 
@@ -85,6 +86,11 @@ public class JokeController {
     @ResponseBody
     public ResponseEntity<Joke> getJokeById(@PathVariable String id) {
         Optional<Joke> joke = this.jokeRepository.findById(id);
+        List<Comment> collect = joke.get().getComments()
+                .stream().sorted(Comparator.comparing(Comment::getLocalDate))
+                .collect(Collectors.toList());
+        joke.get().setComments(collect);
+
         return ResponseEntity.status(200).body(joke.get());
     }
 
@@ -112,8 +118,6 @@ public class JokeController {
         jokeById.get().setTitle(jokeDTO.getTitle());
 
         this.jokeRepository.save(jokeById.get());
-
-
         return ResponseEntity.status(200).body(jokeById.get());
     }
 
@@ -130,11 +134,10 @@ public class JokeController {
     public ResponseEntity<List<Joke>> getLastThree() {
         List<Joke> lastThree = this.jokeRepository.findLastThree()
                 .stream()
-                .sorted(Comparator.comparing(Joke::getCreatedDate))
+                .sorted(Comparator.comparing(Joke::getCreatedDate).reversed())
                 .limit(3).collect(Collectors.toList());
         return ResponseEntity.status(200).body(lastThree);
     }
-
 
 
     @GetMapping("/jokes-by-keyword/:{keyword}")

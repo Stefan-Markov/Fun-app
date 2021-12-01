@@ -2,11 +2,11 @@ import './homeStyle.css'
 import HomeCardCreate from "./HomeCard/HomeCardCreate";
 import HomeCardRead from "./HomeCard/HomeCardRead";
 import HomeCardShare from "./HomeCard/HomeCardShare";
-import AuthenticationService from "../../api/AuthenticationService";
 import LastTheeJokes from './LastTheeJokes/LastTheeJokes';
 import {useEffect, useState} from "react";
 import {getLastTheeJokes} from "../../api/JokeService";
 import {Link} from "react-router-dom";
+import * as AuthenticationService from "../../api/AuthenticationService";
 
 const Home = () => {
     let isLogin = AuthenticationService.isUserLoggedIn();

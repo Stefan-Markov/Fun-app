@@ -3,14 +3,87 @@
     margin: 60px auto;
     width: 90%;
     padding: 30px;
+    align-items: center;
     border-radius: 30px;
     border: 3px solid black;
     display: flex;
     flex-direction: row;
+
 }
 
 .add-comment-wrap label {
     color: orange;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
+    border-bottom: 3px solid orange;
+    margin: 20px;
 }
+
+.add-comment-wrap textarea {
+    width: 70%;
+    border-radius: 10px;
+    padding: 15px;
+    border: 3px solid orange;
+}
+
+.add-comment-wrap button {
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px;
+    font-size: 20px;
+    border: 3px solid orange;
+}
+
+.add-comment-wrap button:hover {
+    cursor: pointer;
+    background: green;
+}
+
+.read-title, .read-keyword {
+    background: white;
+    display: flex;
+    padding: 10px;
+    border-radius: 30px;
+    width: auto;
+    border: 3px solid orange;
+    align-content: center;
+    text-align: center;
+    margin: 10px;
+}
+
+.read-content {
+    background: white;
+    margin: 10px;
+    padding: 30px;
+    width: 50%;
+    height: auto;
+    /*height: 300px;*/
+    border-radius: 30px;
+    word-break: break-word;
+    border: 3px solid orange;
+}
+
+.read-head {
+
+    text-align: center;
+    color: black;
+    font-size: 40px;
+}
+
+.wrap > section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.creator {
+    margin: 10px;
+    font-size: 20px;
+    border-bottom: 3px solid black;
+}
+
+.comments {
+    margin: 40px 80px;
+}
+
