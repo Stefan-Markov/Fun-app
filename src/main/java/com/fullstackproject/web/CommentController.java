@@ -66,4 +66,14 @@ public class CommentController {
         return ResponseEntity.status(200).body(comment);
 
     }
+
+    @DeleteMapping("/add/comment/:{id}")
+    public ResponseEntity<?> deleteCommentById(@PathVariable String id) {
+
+        Comment comment = this.commentRepository.findById(id).get();
+
+        this.commentRepository.deleteById(id);
+
+        return ResponseEntity.status(200).body(comment);
+    }
 }

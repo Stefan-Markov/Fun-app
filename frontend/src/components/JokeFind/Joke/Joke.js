@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getJokeById, onAddComment} from "../../../api/JokeService";
+import {getJokeById, onAddComment, onDeleteComment} from "../../../api/JokeService";
 import './jokeStyle.css'
 
 const Joke = () => {
@@ -9,11 +9,11 @@ const Joke = () => {
     let [dbError, setDbError] = useState([]);
     let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
     let [comments, setComments] = useState([]);
+    let username = sessionStorage.getItem('authenticatedUser');
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setJoke(data);
                 setComments(data.comments);
             })
@@ -39,8 +39,6 @@ const Joke = () => {
             ownerOfComment: sessionStorage.getItem('authenticatedUser')
         }).then(res => res.json())
             .then(data => {
-                console.log(data)
-
                 if (data.cause) {
                     let errors = data.cause.split(', ');
                     setDbError(errors);
@@ -57,6 +55,16 @@ const Joke = () => {
         setDbError([]);
     }
 
+    function deleteComment(id) {
+        try {
+            onDeleteComment(id).then(res => res.json())
+                .then(data => {
+                    let filteredComments = comments.filter(x => x.id !== data.id);
+                    setComments(filteredComments);
+                })
+                .catch(err => err);
+        } catch (err) {}
+    }
 
     return (
         <>
@@ -89,8 +97,14 @@ const Joke = () => {
                 {comments.length > 0 ?
                     comments.map((x, id) =>
                         <div key={x.id} className={'read-content'}>
-                            <p>{x.ownerOfComment} wrote: </p>
-                            <p>{++id}. {x.content}</p>
+                            <div>
+                                <p>{x.ownerOfComment} wrote: </p>
+                                <p>{++id}. {x.content}</p>
+                            </div>
+                            {username === x.ownerOfComment ?
+                                <button onClick={() => deleteComment(x.id)} className={'delete-comment'}>
+                                    <i className="fas fa-eraser"></i>Delete</button>
+                                : ''}
                         </div>)
                     : ''}
             </div>

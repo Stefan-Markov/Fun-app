@@ -25,6 +25,16 @@ export function onAddComment({content, jokeId, ownerOfComment}) {
     });
 }
 
+
+export function onDeleteComment(id) {
+    return fetch(`${API_URL}/add/comment/:${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+    });
+}
+
 export function getJokeByUsername() {
     let username = sessionStorage.getItem('authenticatedUser');
     return fetch(`${API_URL}/joke-manage/:${username}`,

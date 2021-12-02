@@ -122,6 +122,7 @@ public class JokeController {
     }
 
     @DeleteMapping("/joke/:{id}")
+    @ResponseBody
     public ResponseEntity<?> deleteJokeById(@PathVariable String id) {
 
         this.jokeRepository.deleteById(id);

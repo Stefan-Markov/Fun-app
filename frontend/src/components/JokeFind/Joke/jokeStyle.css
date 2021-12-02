@@ -87,3 +87,22 @@
     margin: 40px 80px;
 }
 
+.delete-comment {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: orange;
+    font-size: 15px;
+    width: fit-content;
+
+}
+
+.delete-comment {
+    color: black;
+}
+
+.delete-comment:hover {
+    cursor: pointer;
+    color: orange;
+    background: black;
+}
