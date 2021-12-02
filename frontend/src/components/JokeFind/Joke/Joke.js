@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getJokeById, onAddComment, onDeleteComment} from "../../../api/JokeService";
+import {addLike, getJokeById, onAddComment, onDeleteComment} from "../../../api/JokeService";
 import './jokeStyle.css'
 
 const Joke = () => {
@@ -10,12 +10,24 @@ const Joke = () => {
     let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
     let [comments, setComments] = useState([]);
     let username = sessionStorage.getItem('authenticatedUser');
+    let [likes, setLikes] = useState(0);
+    let [allReadyLiked, setAllReadyLiked] = useState(false);
+
+
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
             .then(data => {
                 setJoke(data);
                 setComments(data.comments);
+
+
+                let likes = data.likes.length;
+                setLikes(likes);
+
+
+                let allReadyLike = Boolean(data.likes.some(x => x.ownerOfComment === username));
+                setAllReadyLiked(allReadyLike);
             })
             .catch(err => err);
     }, [id.id]);
@@ -63,7 +75,17 @@ const Joke = () => {
                     setComments(filteredComments);
                 })
                 .catch(err => err);
-        } catch (err) {}
+        } catch (err) {
+        }
+    }
+
+    function addLikeToJoke(username, id) {
+
+        addLike(username, id)
+            .then(data => data.json())
+            .catch(err => err);
+        setLikes(likes + 1);
+        setAllReadyLiked(true);
     }
 
     return (
@@ -82,6 +104,15 @@ const Joke = () => {
 
                 <div className={'read-head heading'}><i className="fas fa-file-alt"></i> Content</div>
                 <p className={'read-content'}>{joke.content}</p>
+                <div>
+                    {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
+                        :
+                        <button className={'button-like'} onClick={() => addLikeToJoke(username, joke.id)}>
+                            <i className="fas fa-arrow-up"></i> Click to like the joke <i className="fas fa-arrow-up"></i>
+                        </button>
+                    }
+                    <p className={'likes'}><i className="fas fa-thumbs-up"></i> Total likes: {likes}</p>
+                </div>
             </div>
             {fieldsCheck.allFields ? <div className={"warnings-edit"}>Add at least 2 symbols to comment!!!</div> : ''}
             {dbError ? dbError
@@ -110,6 +141,5 @@ const Joke = () => {
             </div>
         </>
     );
-
 }
 export default Joke;

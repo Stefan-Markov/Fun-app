@@ -106,3 +106,25 @@
     color: orange;
     background: black;
 }
+
+.button-like {
+    padding: 5px;
+    border: 3px solid orange;
+    background: white;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.button-like:hover {
+    cursor: pointer;
+    background: green;
+}
+
+.all-ready-liked {
+    margin: 15px;
+}
+
+.likes {
+    text-align: center;
+    font-size: 30px;
+}

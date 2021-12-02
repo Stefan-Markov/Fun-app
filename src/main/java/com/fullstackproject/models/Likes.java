@@ -2,26 +2,17 @@ package com.fullstackproject.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "likes_of_comment")
+@Table(name = "likes_of_joke")
 public class Likes extends BaseEntity {
 
-    private Integer count;
-    private List<User> user;
     private Joke joke;
-
-    @OneToMany(mappedBy = "likes")
-    public List<User> getUser() {
-        return user;
-    }
-
-    public Likes setUser(List<User> user) {
-        this.user = user;
-        return this;
-    }
+    private String ownerOfComment;
 
     @ManyToOne
     @JsonIgnore
@@ -34,14 +25,13 @@ public class Likes extends BaseEntity {
         return this;
     }
 
-    @Column(name = "count", columnDefinition = "integer default 0")
-    public Integer getCount() {
-        return count;
+    @Column(name = "owner_of_like")
+    public String getOwnerOfComment() {
+        return ownerOfComment;
     }
 
-    public Likes setCount(Integer count) {
-        this.count = count;
+    public Likes setOwnerOfComment(String ownerOfComment) {
+        this.ownerOfComment = ownerOfComment;
         return this;
     }
-
 }

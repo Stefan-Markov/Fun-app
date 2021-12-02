@@ -35,6 +35,15 @@ export function onDeleteComment(id) {
     });
 }
 
+export function addLike(username, id) {
+    return fetch(`${API_URL}/add/like/:${id}/:${username}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+    });
+}
+
 export function getJokeByUsername() {
     let username = sessionStorage.getItem('authenticatedUser');
     return fetch(`${API_URL}/joke-manage/:${username}`,
@@ -84,9 +93,6 @@ export function deleteJokeById({id}) {
 export function getLastTheeJokes() {
     return fetch(`${API_URL}/lastTheeJokes`, {
         method: 'GET',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // }
     });
 }
 

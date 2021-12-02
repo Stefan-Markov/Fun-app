@@ -8,11 +8,20 @@ const Login = ({onLogin}) => {
 
     let navigate = useNavigate();
     let [userInfo, setUserInfo] = useState({hasLoginFailed: false,});
+    let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
     const onSubmitLogin = (e) => {
         e.preventDefault();
         let form = new FormData(e.target);
         let username = form.get('username');
         let password = form.get('password');
+
+
+        if (!username || !password) {
+            seTFieldsCheck({allFields: true});
+            return;
+        }
+        seTFieldsCheck({allFields: false});
+
         AuthenticationService
             .authJwtService(username, password)
             .then((response) => {
@@ -31,15 +40,16 @@ const Login = ({onLogin}) => {
         <div className="login-box">
             <h2>Login</h2>
             {userInfo.hasLoginFailed && <div className="warning">Invalid Credentials</div>}
+            {fieldsCheck.allFields ? <div className="warning">Fill all fields!</div> : ''}
             <form onSubmit={onSubmitLogin}>
                 <div className="user-box">
                     <input type="text" name="username" defaultValue=''
-                           required={true}/>
+                           />
                     <label>Username</label>
                 </div>
                 <div className="user-box">
                     <input type="password" name="password" defaultValue=''
-                           required={true}/>
+                          />
                     <label>Password</label>
                 </div>
                 <button type="submit">

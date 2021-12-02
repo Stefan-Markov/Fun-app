@@ -21,17 +21,6 @@ public class User extends BaseEntity implements UserDetails {
     private LocalDateTime createdDate = LocalDateTime.now();
     private Set<Role> authorities;
     private List<Joke> joke;
-    private Likes likes;
-
-    @ManyToOne
-    public Likes getLikes() {
-        return likes;
-    }
-
-    public User setLikes(Likes likes) {
-        this.likes = likes;
-        return this;
-    }
 
     @OneToMany(mappedBy = "user")
     public List<Joke> getJoke() {
@@ -45,6 +34,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Column(name = "email")
     @Email(message = "Enter valid email!")
+    @Length(min = 3,max = 100,message = "Provide email between 3 and 100 symbols.")
     public String getEmail() {
         return email;
     }
@@ -81,7 +71,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Column(name = "username", nullable = false, unique = true)
-    @Length(min = 5, message = "Username must be between five and fifty symbols")
+    @Length(min = 5,max = 100, message = "Username must be between five and one hundred symbols")
     @NotNull(message = "Username has to be filled!")
     public String getUsername() {
         return username;
@@ -117,7 +107,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Column(name = "password")
-    @Length(min = 5, message = "Password must be between five and fifty symbols")
+    @Length(min = 5,max = 100,message = "Password must be between five and one hundred symbols")
     @NotNull(message = "Password has to be filled!")
     public String getPassword() {
         return password;

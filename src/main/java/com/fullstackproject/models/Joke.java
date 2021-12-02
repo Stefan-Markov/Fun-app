@@ -19,7 +19,18 @@ public class Joke extends BaseEntity {
     private String keyword;
     private List<Comment> comments;
     private String creator;
+    private List<Likes> likes;
     private LocalDateTime createdDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "joke")
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public Joke setLikes(List<Likes> likes) {
+        this.likes = likes;
+        return this;
+    }
 
     @OneToMany(mappedBy = "joke")
     public List<Comment> getComments() {
@@ -54,7 +65,7 @@ public class Joke extends BaseEntity {
     }
 
     @Column(name = "keyword")
-    @Length(min = 3, message = "Keyword must be at least 3 symbols.")
+    @Length(min = 3,max = 100, message = "Keyword must be at least 3 and maximum 100 symbols.")
     public String getKeyword() {
         return keyword;
     }
@@ -78,7 +89,7 @@ public class Joke extends BaseEntity {
 
     @Column(name = "title")
     @NotNull(message = "Enter valid title!")
-    @Length(min = 3, message = "Enter at least 3 symbols for title!")
+    @Length(min = 3,max = 100, message = "Enter at least 3 and maximum 100 symbols for title!")
     public String getTitle() {
         return title;
     }
@@ -88,9 +99,9 @@ public class Joke extends BaseEntity {
         return this;
     }
 
-    @Column(name = "content",columnDefinition = "TEXT")
+    @Column(name = "content", columnDefinition = "MEDIUMTEXT")
     @NotNull(message = "Enter valid content!")
-    @Length(min = 3, message = "Enter at least 3 symbols for content!")
+    @Length(min = 3,message = "Enter at least 3 symbols for content!")
     public String getContent() {
         return content;
     }

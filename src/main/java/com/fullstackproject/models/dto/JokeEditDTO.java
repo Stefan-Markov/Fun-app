@@ -13,8 +13,9 @@ public class JokeEditDTO {
 
     public JokeEditDTO() {
     }
+
     @NotNull(message = "Enter valid title!")
-    @Length(min = 3, message = "Enter et least 3 symbols for title!")
+    @Length(min = 3, max = 100, message = "Enter at least 3 and maximum 100 symbols for title!")
     public String getTitle() {
         return title;
     }
@@ -23,8 +24,9 @@ public class JokeEditDTO {
         this.title = title;
         return this;
     }
+
     @NotNull(message = "Enter valid content!")
-    @Length(min = 3, message = "Enter et least 3 symbols for content!")
+    @Length(min = 3, message = "Enter at least 3 symbols for content!")
     public String getContent() {
         return content;
     }
@@ -42,7 +44,8 @@ public class JokeEditDTO {
         this.id = id;
         return this;
     }
-    @Length(min = 3, message = "Keyword must be at least 3 symbols.")
+
+    @Length(min = 3, max = 100, message = "Keyword must be at least 3 and maximum 100 symbols.")
     @NotNull(message = "Enter valid keyword!")
     public String getKeyword() {
         return keyword;

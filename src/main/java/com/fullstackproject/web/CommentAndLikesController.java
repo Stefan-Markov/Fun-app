@@ -3,9 +3,13 @@ package com.fullstackproject.web;
 import com.fullstackproject.errorHandling.ErrorRest;
 import com.fullstackproject.models.Comment;
 import com.fullstackproject.models.Joke;
+import com.fullstackproject.models.Likes;
+import com.fullstackproject.models.User;
 import com.fullstackproject.models.dto.CommentDto;
 import com.fullstackproject.repositories.CommentRepository;
 import com.fullstackproject.repositories.JokeRepository;
+import com.fullstackproject.repositories.LikeRepository;
+import com.fullstackproject.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,23 +21,28 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.fullstackproject.constants.Constants.API_HOST;
 
 @RestController
 @Transactional
 @CrossOrigin(API_HOST)
-public class CommentController {
+public class CommentAndLikesController {
 
     private final CommentRepository commentRepository;
     private final JokeRepository jokeRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
 
-    public CommentController(CommentRepository commentRepository,
-                             JokeRepository jokeRepository, ModelMapper modelMapper) {
+    public CommentAndLikesController(CommentRepository commentRepository,
+                                     JokeRepository jokeRepository, ModelMapper modelMapper, UserRepository userRepository, LikeRepository likeRepository) {
         this.commentRepository = commentRepository;
         this.jokeRepository = jokeRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
+        this.likeRepository = likeRepository;
     }
 
     @PostMapping("/add/comment/:{jokeId}")
@@ -75,5 +84,20 @@ public class CommentController {
         this.commentRepository.deleteById(id);
 
         return ResponseEntity.status(200).body(comment);
+    }
+
+    @PostMapping("/add/like/:{id}/:{username}")
+    public ResponseEntity<?> addLike(@PathVariable String id, @PathVariable String username) {
+
+        Joke joke = this.jokeRepository.findById(id).get();
+        Likes like = new Likes();
+        like.setOwnerOfComment(username);
+        like.setJoke(joke);
+
+        this.likeRepository.save(like);
+
+
+        return ResponseEntity.status(200).build();
+
     }
 }
