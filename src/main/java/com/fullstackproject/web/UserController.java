@@ -10,6 +10,7 @@ import com.fullstackproject.repositories.RoleRepository;
 import com.fullstackproject.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -32,7 +33,8 @@ public class UserController {
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
 
-    public UserController(UserRepository userRepository, PasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository, ModelMapper modelMapper) {
+    public UserController(UserRepository userRepository, PasswordEncoder bCryptPasswordEncoder,
+                          RoleRepository roleRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.roleRepository = roleRepository;
@@ -41,6 +43,7 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
+    @PreAuthorize("!isAuthenticated()")
     public Object register(@RequestBody @Valid User userData, BindingResult bindingResult) {
         Optional<User> tryUser = this.userRepository.findByUsername(userData.getUsername());
         if (tryUser.isPresent()) {
@@ -59,7 +62,6 @@ public class UserController {
             List<String> message = new ArrayList<>();
             errorRest.setCode(401);
             for (FieldError e : errors) {
-//                message.add(e.getField() + " : " + e.getDefaultMessage());
                 message.add(e.getDefaultMessage());
             }
             errorRest.setMessage("Update Failed");
@@ -68,7 +70,6 @@ public class UserController {
         }
 
         try {
-
             Role role = this.roleRepository.findByAuthority(ROLE_USER);
             Set<Role> roles = new HashSet<>();
             roles.add(role);
@@ -93,6 +94,7 @@ public class UserController {
 
     @GetMapping("/account/:{username}")
     @ResponseBody
+    @PreAuthorize("#username == authentication.name && hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public UserDto getUserByUsername(@PathVariable String username) {
         Optional<User> byUsername = this.userRepository.findByUsername(username);
 
@@ -102,6 +104,7 @@ public class UserController {
 
     @GetMapping("/:{username}")
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public List<String> getUsersByUsername(@PathVariable String username) {
 
         return this.userRepository.findAllBySimilarUsername(username);
@@ -109,6 +112,7 @@ public class UserController {
 
     @PutMapping("/role/:{username}")
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public Object removeRoleOnUser(@PathVariable String username) {
         Success success = new Success();
         String principalUser = SecurityContextHolder
@@ -148,6 +152,7 @@ public class UserController {
 
     @PutMapping("/role-admin/:{username}")
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public Object upgradeRoleOnUser(@PathVariable String username) {
         Success success = new Success();
         String principalUser = SecurityContextHolder
@@ -187,6 +192,7 @@ public class UserController {
 
     @DeleteMapping("/user/:{username}")
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public Object deleteUser(@PathVariable String username) {
         Success success = new Success();
         String principalUser = SecurityContextHolder

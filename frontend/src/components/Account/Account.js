@@ -16,7 +16,6 @@ const Account = () => {
             .then(res => res.json())
             .then(data => {
                 setUser(data)
-                console.log(data);
                 setRoles(data.authorities.map(x => x.authority + " "));
                 setDate(moment(user.createdDate).format('YYYY-MM-DD'))
             })
@@ -28,7 +27,6 @@ const Account = () => {
     let usernameData = user.username;
     let email = user.email;
 
-    console.log(user.joke)
     return (
         <div className={'wrap-main'}>
             <h1>{usernameData}'s account</h1>

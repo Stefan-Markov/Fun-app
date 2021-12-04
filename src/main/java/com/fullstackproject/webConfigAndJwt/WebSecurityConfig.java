@@ -113,7 +113,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/register")
                 .and()
                 .ignoring()
-                .antMatchers("/h2-console/**/**");//Should not be in Production!
+                .antMatchers("/h2-console/**/**");
     }
 }
 

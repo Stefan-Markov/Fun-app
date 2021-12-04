@@ -76,6 +76,7 @@ public class JokeController {
 
     @GetMapping("/joke-manage/:{username}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Joke>> getJokes(@PathVariable String username) {
         List<Joke> jokes = this.jokeRepository.findAllByUsername(username);
         return ResponseEntity.status(200).body(jokes);
@@ -84,6 +85,7 @@ public class JokeController {
 
     @GetMapping("/joke/:{id}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Joke> getJokeById(@PathVariable String id) {
         Optional<Joke> joke = this.jokeRepository.findById(id);
         List<Comment> collect = joke.get().getComments()
@@ -96,6 +98,7 @@ public class JokeController {
 
     @PutMapping("/joke/:{id}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public Object editJokeById(@PathVariable String id, @RequestBody @Valid JokeEditDTO jokeDTO, BindingResult bindingResult) {
         Optional<Joke> jokeById = this.jokeRepository.findById(id);
 
@@ -123,6 +126,7 @@ public class JokeController {
 
     @DeleteMapping("/joke/:{id}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteJokeById(@PathVariable String id) {
 
         this.jokeRepository.deleteById(id);
@@ -143,6 +147,7 @@ public class JokeController {
 
     @GetMapping("/jokes-by-keyword/:{keyword}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Joke>> getJokesByKeyword(@PathVariable String keyword) {
         List<Joke> lastThree = this.jokeRepository.findAllByKeyword(keyword)
                 .stream()
@@ -153,6 +158,7 @@ public class JokeController {
 
     @GetMapping("/jokes-by-most-likes")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Joke>> getJokesByMostLikes() {
         List<Joke> joke = this.jokeRepository.findJokeWithMostLikes()
                 .stream().limit(1).collect(Collectors.toList());
