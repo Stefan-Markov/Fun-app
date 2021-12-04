@@ -16,7 +16,6 @@ const JokeFind = () => {
 
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     setJokes(data)
                 });
         } else {
