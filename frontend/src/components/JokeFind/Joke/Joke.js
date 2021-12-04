@@ -20,7 +20,7 @@ const Joke = () => {
             .then(data => {
                 setJoke(data);
                 setComments(data.comments);
-                console.log(data);
+
                 let likes = data.likes.length;
                 setLikes(likes);
 

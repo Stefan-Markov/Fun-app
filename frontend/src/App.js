@@ -43,7 +43,7 @@ function App() {
         })
     };
 
-    try {
+
         return (
             <div>
                 <NavBar {...userInfo}/>
@@ -63,9 +63,7 @@ function App() {
                 <Footer/>
             </div>
         );
-    } catch (err) {
 
-    }
 }
 
 export default App;
