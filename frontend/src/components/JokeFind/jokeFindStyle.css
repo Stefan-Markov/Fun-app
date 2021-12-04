@@ -28,8 +28,29 @@
 .search-keyword-wrap li {
     background: orange;
 }
-.joke-read-link{
+
+.joke-read-link {
     color: black;
+}
+
+.lastThree {
+    border-left: 5px solid orange;
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+    margin-bottom: 50px;
+}
+
+.most-liked {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.most-liked > p {
+    color: orange;
+    font-size: 30px;
 }
 
 

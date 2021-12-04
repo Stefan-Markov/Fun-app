@@ -20,8 +20,7 @@ const Joke = () => {
             .then(data => {
                 setJoke(data);
                 setComments(data.comments);
-
-
+                console.log(data);
                 let likes = data.likes.length;
                 setLikes(likes);
 
@@ -121,7 +120,7 @@ const Joke = () => {
                 <div className={'add-comment-wrap'}>
                     <label>Add comment</label>
                     <textarea name={'content'}/>
-                    <button type='submit'>Add</button>
+                    <button type='submit'>Add <i className="fas fa-plus"></i></button>
                 </div>
             </form>
             <div className={'comments'}>

@@ -108,3 +108,13 @@ export function getJokesFromDbByKeyword(keyword) {
 
 
 
+export function getJokeByMostLikes() {
+    return fetch(`${API_URL}/jokes-by-most-likes`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+}
+

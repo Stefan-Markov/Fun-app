@@ -147,8 +147,15 @@ public class JokeController {
         List<Joke> lastThree = this.jokeRepository.findAllByKeyword(keyword)
                 .stream()
                 .sorted(Comparator.comparing(Joke::getCreatedDate))
-                .limit(3).collect(Collectors.toList());
+                .collect(Collectors.toList());
         return ResponseEntity.status(200).body(lastThree);
     }
-}
 
+    @GetMapping("/jokes-by-most-likes")
+    @ResponseBody
+    public ResponseEntity<List<Joke>> getJokesByMostLikes() {
+        List<Joke> joke = this.jokeRepository.findJokeWithMostLikes()
+                .stream().limit(1).collect(Collectors.toList());
+        return ResponseEntity.status(200).body(joke);
+    }
+}

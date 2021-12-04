@@ -14,6 +14,7 @@ public class UserDto {
     private LocalDateTime createdDate = LocalDateTime.now();
     private Set<Role> authorities;
     private List<Joke> joke;
+
     public UserDto() {
     }
 
