@@ -10,6 +10,8 @@ import com.fullstackproject.repositories.RoleRepository;
 import com.fullstackproject.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,8 +45,8 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
-    @PreAuthorize("!isAuthenticated()")
     public Object register(@RequestBody @Valid User userData, BindingResult bindingResult) {
+
         Optional<User> tryUser = this.userRepository.findByUsername(userData.getUsername());
         if (tryUser.isPresent()) {
             ErrorRest errorRest = new ErrorRest();

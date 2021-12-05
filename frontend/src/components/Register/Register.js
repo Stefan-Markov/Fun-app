@@ -63,7 +63,6 @@ const Register = ({onLogin}) => {
             }).catch(err => err.message);
     }
 
-
     return (
         <div className={'div-c'}>
             <div className={'flex'}>
@@ -106,6 +105,7 @@ const Register = ({onLogin}) => {
         </div>
 
     );
+
 }
 
 export default Register;

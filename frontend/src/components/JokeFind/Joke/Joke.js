@@ -19,10 +19,8 @@ const Joke = () => {
             .then(res => res.json())
             .then(data => {
                 setJoke(data);
-                console.log(data);
                 let peopleWhoLiked = data.likes.map(x => x.ownerOfComment).join(', ');
                 setPeopleWhoLiked(peopleWhoLiked);
-                console.log(peopleWhoLiked);
                 setComments(data.comments);
                 let date = data.createdDate[0] + "-" + data.createdDate[1] + "-" + data.createdDate[2];
                 setAdded(date);
@@ -112,8 +110,8 @@ const Joke = () => {
                     {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
                         :
                         <button className={'button-like'} onClick={() => addLikeToJoke(username, joke.id)}>
-                            <i className="fas fa-arrow-up"></i> Click to like the joke <i
-                            className="fas fa-arrow-up"></i>
+                            <i className="fas fa-arrow-up"></i> Click to like the joke
+                            <i className="fas fa-arrow-up"></i>
                         </button>
                     }
                     <p className={'likes'}><i className="fas fa-thumbs-up"></i> Total likes: {likes}</p>
