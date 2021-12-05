@@ -13,11 +13,16 @@ const Joke = () => {
     let [likes, setLikes] = useState(0);
     let [allReadyLiked, setAllReadyLiked] = useState(false);
     let [added, setAdded] = useState([]);
+    let [peopleWhoLiked, setPeopleWhoLiked] = useState([]);
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
             .then(data => {
                 setJoke(data);
+                console.log(data);
+                let peopleWhoLiked = data.likes.map(x => x.ownerOfComment).join(', ');
+                setPeopleWhoLiked(peopleWhoLiked);
+                console.log(peopleWhoLiked);
                 setComments(data.comments);
                 let date = data.createdDate[0] + "-" + data.createdDate[1] + "-" + data.createdDate[2];
                 setAdded(date);
@@ -79,12 +84,12 @@ const Joke = () => {
     }
 
     function addLikeToJoke(username, id) {
-
         addLike(username, id)
             .then(data => data.json())
             .catch(err => err);
         setLikes(likes + 1);
         setAllReadyLiked(true);
+        setPeopleWhoLiked(oldState => [...oldState, ", " + username]);
     }
 
     return (
@@ -113,6 +118,8 @@ const Joke = () => {
                     }
                     <p className={'likes'}><i className="fas fa-thumbs-up"></i> Total likes: {likes}</p>
                 </div>
+                {peopleWhoLiked.length > 0 ? <p>People who liked: {peopleWhoLiked}</p> : ''}
+
                 <p className={'added'}>Date added: {added}</p>
             </div>
             {fieldsCheck.allFields ? <div className={"warnings-edit"}>Add at least 2 symbols to comment!!!</div> : ''}
@@ -131,9 +138,10 @@ const Joke = () => {
 
                         <div key={x.id} className={'read-content'}>
                             <div>
-                                <p>{x.ownerOfComment} wrote: </p>
-                                <p>{++id}. {x.content}</p>
-                                <p><i className="fas fa-calendar-alt"></i>  Date added: {x.localDate[0] + "-" + x.localDate[1] + "-" + x.localDate[2]}</p>
+                                <p><i className="fas fa-pen-alt"></i> {x.ownerOfComment} wrote: </p>
+                                <p><i className="fas fa-sort-amount-down"></i> {++id}. {x.content}</p>
+                                <p><i className="fas fa-calendar-alt"></i> Date
+                                    added: {x.localDate[0] + "-" + x.localDate[1] + "-" + x.localDate[2]}</p>
                             </div>
                             {username === x.ownerOfComment ?
                                 <button onClick={() => deleteComment(x.id)} className={'delete-comment'}>
