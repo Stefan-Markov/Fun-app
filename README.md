@@ -42,6 +42,9 @@ Functionality
 - Add likes
 - Check who already like the joke
 - Over four different search engines for: edit data, search data, manage roles, user and jokes
+- Admin panel
 - Consume DB information based on search by keywords and show dynamic content
 - Validate user data inputs and show proper message, if needed
+- Search engines to fetch data from DB and show dynamic content based on input
+- Rendering items based on colletions, ids,data or inputs
 

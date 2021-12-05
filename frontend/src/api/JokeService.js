@@ -90,8 +90,8 @@ export function deleteJokeById({id}) {
         });
 }
 
-export function getLastTheeJokes() {
-    return fetch(`${API_URL}/lastTheeJokes`, {
+export  function getLastTheeJokes() {
+    return  fetch(`${API_URL}/lastTheeJokes`, {
         method: 'GET',
     });
 }
