@@ -127,4 +127,10 @@
 .likes {
     text-align: center;
     font-size: 30px;
+
+}
+
+.added {
+    border-top: 3px solid black;
+    margin: 15px;
 }

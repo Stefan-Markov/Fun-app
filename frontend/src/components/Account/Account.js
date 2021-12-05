@@ -1,7 +1,6 @@
 import {getUserByUsername} from "../../api/UserService";
 import {useEffect, useState} from "react";
 import JokeCard from "../Joke/ManageJoke/JokeCard/JokeCard";
-import moment from "moment";
 import './accountStyle.css'
 import {Link} from "react-router-dom";
 
@@ -16,8 +15,11 @@ const Account = () => {
             .then(res => res.json())
             .then(data => {
                 setUser(data)
+
                 setRoles(data.authorities.map(x => x.authority + " "));
-                setDate(moment(user.createdDate).format('YYYY-MM-DD'))
+                let date = data.createdDate[0] + "-" + data.createdDate[1] + "-" + data.createdDate[2];
+
+                setDate(date)
             })
             .catch(err => err);
     }, [username])
@@ -40,10 +42,10 @@ const Account = () => {
 
             <div className={'wrap-cards'}>
 
-                    <Link className={'link'} to={'/joke-add'}>Create joke here</Link>
+                <Link className={'link'} to={'/joke-add'}>Create joke here</Link>
 
-                {user.joke  ? user.joke.map(x => <JokeCard key={x.id} joke={x}/>) :
-                 ''
+                {user.joke ? user.joke.map(x => <JokeCard key={x.id} joke={x}/>) :
+                    ''
                 }
             </div>
         </div>

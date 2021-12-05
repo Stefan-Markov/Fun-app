@@ -12,18 +12,18 @@ const Joke = () => {
     let username = sessionStorage.getItem('authenticatedUser');
     let [likes, setLikes] = useState(0);
     let [allReadyLiked, setAllReadyLiked] = useState(false);
-
-
+    let [added, setAdded] = useState([]);
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
             .then(data => {
                 setJoke(data);
                 setComments(data.comments);
+                let date = data.createdDate[0] + "-" + data.createdDate[1] + "-" + data.createdDate[2];
+                setAdded(date);
 
                 let likes = data.likes.length;
                 setLikes(likes);
-
 
                 let allReadyLike = Boolean(data.likes.some(x => x.ownerOfComment === username));
                 setAllReadyLiked(allReadyLike);
@@ -107,11 +107,13 @@ const Joke = () => {
                     {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
                         :
                         <button className={'button-like'} onClick={() => addLikeToJoke(username, joke.id)}>
-                            <i className="fas fa-arrow-up"></i> Click to like the joke <i className="fas fa-arrow-up"></i>
+                            <i className="fas fa-arrow-up"></i> Click to like the joke <i
+                            className="fas fa-arrow-up"></i>
                         </button>
                     }
                     <p className={'likes'}><i className="fas fa-thumbs-up"></i> Total likes: {likes}</p>
                 </div>
+                <p className={'added'}>Date added: {added}</p>
             </div>
             {fieldsCheck.allFields ? <div className={"warnings-edit"}>Add at least 2 symbols to comment!!!</div> : ''}
             {dbError ? dbError
@@ -126,10 +128,12 @@ const Joke = () => {
             <div className={'comments'}>
                 {comments.length > 0 ?
                     comments.map((x, id) =>
+
                         <div key={x.id} className={'read-content'}>
                             <div>
                                 <p>{x.ownerOfComment} wrote: </p>
                                 <p>{++id}. {x.content}</p>
+                                <p><i className="fas fa-calendar-alt"></i>  Date added: {x.localDate[0] + "-" + x.localDate[1] + "-" + x.localDate[2]}</p>
                             </div>
                             {username === x.ownerOfComment ?
                                 <button onClick={() => deleteComment(x.id)} className={'delete-comment'}>
