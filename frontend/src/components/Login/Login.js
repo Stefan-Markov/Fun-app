@@ -2,7 +2,7 @@ import './formStyle.css'
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from 'react'
 
-import * as AuthenticationService from "../../api/AuthenticationService";
+import * as authenticationService from "../../api/AuthenticationService";
 import {useAuth} from "../../api/contexts/AuthContext";
 import jwt from "jwt-decode";
 
@@ -26,10 +26,10 @@ const Login = ({onLogin}) => {
         }
         seTFieldsCheck({allFields: false});
 
-        AuthenticationService
+        authenticationService
             .authJwtService(username, password)
             .then((response) => {
-                AuthenticationService.login(username, response.data.token);
+                authenticationService.login(username, response.data.token);
 
                 let decoded = jwt(response.data.token);
                 let roles = decoded['roles'];

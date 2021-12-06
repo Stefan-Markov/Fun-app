@@ -27,6 +27,7 @@ Front end
 - Context 
 - Error boundary
 - Hooks approach
+- HOC
 - Components segregation
 - Consume JWT for Auth
 - Consume JSON from Spring 
@@ -46,10 +47,10 @@ Functionality
 - Read comments
 - Add likes
 - Check who already like the joke
-- Over four different search engines for: edit data, search data, manage roles, user and jokes
 - Admin panel
 - Consume DB information based on search by keywords and show dynamic content
 - Validate user data inputs and show proper message, if needed
+- Over four different search engines for: edit data, search data, manage roles, user and jokes
 - Search engines to fetch data from DB and show dynamic content based on input
 - Search user by username, roles
 - Search joke by keyword (by regex)

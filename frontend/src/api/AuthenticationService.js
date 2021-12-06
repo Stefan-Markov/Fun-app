@@ -8,10 +8,7 @@ export const USER_TOKEN = 'token';
 
 
 export function authJwtService(username, password) {
-    return axios.post(`${API_URL}/authenticate`, {
-        username,
-        password
-    })
+    return axios.post(`${API_URL}/authenticate`, {username, password})
 }
 
 export function login(username, token) {
@@ -23,11 +20,6 @@ export function login(username, token) {
     sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
     sessionStorage.setItem(USER_TOKEN, token);
 }
-
-export function createJWTToken(token) {
-    return 'Bearer ' + token
-}
-
 
 export function logout() {
     sessionStorage.removeItem(USER_NAME_SESSION_ROLES);

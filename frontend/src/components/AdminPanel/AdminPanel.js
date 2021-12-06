@@ -1,6 +1,7 @@
 import './adminPanelStyle.css'
 import {useState} from "react";
 import {deleteUser, getAllUsersBySimilarUsername, removeRoleOnUser, upgradeRoleOnUser} from "../../api/UserService";
+import {isAdmin} from "../../api/hoc/isAdmin";
 
 const AdminPanel = () => {
 
@@ -103,4 +104,4 @@ const AdminPanel = () => {
     );
 }
 
-export default AdminPanel;
+export default isAdmin(AdminPanel);
