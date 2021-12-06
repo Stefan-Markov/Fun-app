@@ -1,6 +1,6 @@
 package com.fullstackproject.service.impl;
 
-import com.fullstackproject.models.Role;
+import com.fullstackproject.models.entities.Role;
 import com.fullstackproject.repositories.RoleRepository;
 import com.fullstackproject.service.RoleService;
 import org.modelmapper.ModelMapper;

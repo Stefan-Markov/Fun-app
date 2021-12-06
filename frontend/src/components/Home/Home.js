@@ -4,9 +4,9 @@ import HomeCardRead from "./HomeCard/HomeCardRead";
 import HomeCardShare from "./HomeCard/HomeCardShare";
 import LastTheeJokes from './LastTheeJokes/LastTheeJokes';
 import {useEffect, useState} from "react";
-import {getLastTheeJokes} from "../../api/JokeService";
+import {getLastTheeJokes} from "../../api/service/JokeService";
 import {Link} from "react-router-dom";
-import * as AuthenticationService from "../../api/AuthenticationService";
+import * as AuthenticationService from "../../api/service/AuthenticationService";
 
 const Home = () => {
     let isLogin = AuthenticationService.isUserLoggedIn();

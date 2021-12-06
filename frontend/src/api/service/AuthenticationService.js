@@ -1,10 +1,8 @@
 import axios from 'axios'
-import {API_URL} from './Constants'
+import {API_URL, USER_NAME_SESSION_ATTRIBUTE_NAME, USER_NAME_SESSION_ROLES, USER_TOKEN} from '../constants/Constants'
 import jwt from 'jwt-decode'
 
-export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
-export const USER_NAME_SESSION_ROLES = 'roles';
-export const USER_TOKEN = 'token';
+
 
 
 export function authJwtService(username, password) {

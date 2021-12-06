@@ -1,6 +1,6 @@
 package com.fullstackproject.webConfigAndJwt;
 
-import com.fullstackproject.models.User;
+import com.fullstackproject.models.entities.User;
 import com.fullstackproject.repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

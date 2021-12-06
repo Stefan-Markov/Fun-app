@@ -1,4 +1,4 @@
-import {getUserByUsername} from "../../api/UserService";
+import {getUserByUsername} from "../../api/service/UserService";
 import {useEffect, useState} from "react";
 import JokeCard from "../Joke/ManageJoke/JokeCard/JokeCard";
 import './accountStyle.css'

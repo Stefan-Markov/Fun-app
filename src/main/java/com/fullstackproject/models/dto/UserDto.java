@@ -1,7 +1,7 @@
 package com.fullstackproject.models.dto;
 
-import com.fullstackproject.models.Joke;
-import com.fullstackproject.models.Role;
+import com.fullstackproject.models.entities.Joke;
+import com.fullstackproject.models.entities.Role;
 
 import java.time.LocalDateTime;
 import java.util.List;

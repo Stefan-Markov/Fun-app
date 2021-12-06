@@ -1,4 +1,4 @@
-package com.fullstackproject.models;
+package com.fullstackproject.models.entities;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;

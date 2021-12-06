@@ -1,13 +1,12 @@
 import './jokeAddStyle.css';
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {onCreate} from "../../../api/JokeService";
+import {onCreate} from "../../../api/service/JokeService";
 
 const JokeAdd = () => {
     let navigate = useNavigate();
     let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
     let [dbError, setDbError] = useState([]);
-
 
     const onSubmitCreate = (e) => {
         e.preventDefault();

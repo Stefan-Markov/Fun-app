@@ -1,6 +1,6 @@
 import './jokeFindStyle.css';
 import {useEffect, useState} from "react";
-import {getJokeByMostLikes, getJokesFromDbByKeyword, getLastTheeJokes} from "../../api/JokeService";
+import {getJokeByMostLikes, getJokesFromDbByKeyword, getLastTheeJokes} from "../../api/service/JokeService";
 import {Link} from "react-router-dom";
 import LastTheeJokes from "../Home/LastTheeJokes/LastTheeJokes";
 
@@ -58,6 +58,7 @@ const JokeFind = () => {
                 <div className={'div-search-keyword-wrap'}>
                     <label className={'label'}>Find by keyword</label>
                     <input className={'input-keyword-search'} name='keyword' onKeyUp={getJokesByKeyword}/>
+
                 </div>
                 {
                     jokes.length >= 1 ?

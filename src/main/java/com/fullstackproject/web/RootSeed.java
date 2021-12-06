@@ -1,6 +1,6 @@
 package com.fullstackproject.web;
 
-import com.fullstackproject.models.User;
+import com.fullstackproject.models.entities.User;
 import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.service.RoleService;
 import org.springframework.boot.CommandLineRunner;

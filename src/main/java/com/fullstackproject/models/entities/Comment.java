@@ -1,4 +1,4 @@
-package com.fullstackproject.models;
+package com.fullstackproject.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;

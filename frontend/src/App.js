@@ -17,9 +17,9 @@ import NoData from "./components/NoData/NoData";
 import AuthGuard from "./components/RouteGuards/AuthGuard";
 import NoAuthGuard from "./components/RouteGuards/NoAuthGuard";
 import AdminGuard from "./components/RouteGuards/AdminGuard";
-import ErrorCatch from "./api/ErrorBound/ErrorCatch";
+import ErrorCatch from "./api/errorBound/ErrorCatch";
 import {AuthProvider} from "./api/contexts/AuthContext";
-import * as AuthenticationService from "./api/AuthenticationService";
+import * as AuthenticationService from "./api/service/AuthenticationService";
 
 function App() {
 

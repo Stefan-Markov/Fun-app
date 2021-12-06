@@ -1,9 +1,9 @@
 package com.fullstackproject.web;
 
 import com.fullstackproject.errorHandling.ErrorRest;
-import com.fullstackproject.models.Comment;
-import com.fullstackproject.models.Joke;
-import com.fullstackproject.models.User;
+import com.fullstackproject.models.entities.Comment;
+import com.fullstackproject.models.entities.Joke;
+import com.fullstackproject.models.entities.User;
 import com.fullstackproject.models.dto.JokeDTO;
 import com.fullstackproject.models.dto.JokeEditDTO;
 import com.fullstackproject.repositories.JokeRepository;
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static com.fullstackproject.constants.Constants.API_HOST;

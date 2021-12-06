@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {deleteJokeById, editJokeById, getJokeById} from "../../../api/JokeService";
+import {deleteJokeById, editJokeById, getJokeById} from "../../../api/service/JokeService";
 import {useEffect, useState} from "react";
 import './jokeByIdStyle.css';
 

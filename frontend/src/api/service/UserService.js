@@ -1,4 +1,4 @@
-import {API_URL} from './Constants'
+import {API_URL} from '../constants/Constants'
 
 export function onRegister({username, password, email}) {
 

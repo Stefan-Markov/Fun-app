@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import JokeCard from "./JokeCard/JokeCard";
-import {getJokeByUsername} from "../../../api/JokeService";
+import {getJokeByUsername} from "../../../api/service/JokeService";
 import './manageJokeStyle.css'
 
 const ManageJoke = () => {

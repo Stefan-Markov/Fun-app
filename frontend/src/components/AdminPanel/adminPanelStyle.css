@@ -65,6 +65,16 @@
     color: orange;
 }
 
-.li-usernames:hover{
+.li-usernames:hover {
     cursor: text;
+}
+
+.fa-search {
+    position: relative;
+    left: 210px;
+    bottom: 30px;
+    padding: 7px;
+    background-color: orange;
+    width: fit-content;
+    border-radius: 20px;
 }

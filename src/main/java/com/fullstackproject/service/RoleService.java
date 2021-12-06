@@ -1,6 +1,6 @@
 package com.fullstackproject.service;
 
-import com.fullstackproject.models.Role;
+import com.fullstackproject.models.entities.Role;
 
 import java.util.Set;
 

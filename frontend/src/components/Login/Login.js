@@ -2,7 +2,7 @@ import './formStyle.css'
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from 'react'
 
-import * as authenticationService from "../../api/AuthenticationService";
+import * as authenticationService from "../../api/service/AuthenticationService";
 import {useAuth} from "../../api/contexts/AuthContext";
 import jwt from "jwt-decode";
 

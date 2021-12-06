@@ -1,6 +1,6 @@
 package com.fullstackproject.repositories;
 
-import com.fullstackproject.models.Comment;
+import com.fullstackproject.models.entities.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

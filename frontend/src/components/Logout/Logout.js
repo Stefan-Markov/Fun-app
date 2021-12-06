@@ -1,4 +1,4 @@
-import * as AuthenticationService from "../../api/AuthenticationService";
+import * as AuthenticationService from "../../api/service/AuthenticationService";
 import {Navigate} from "react-router-dom";
 import React, {useEffect} from "react";
 import {useAuth} from "../../api/contexts/AuthContext";

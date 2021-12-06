@@ -1,4 +1,4 @@
-package com.fullstackproject.models;
+package com.fullstackproject.models.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 

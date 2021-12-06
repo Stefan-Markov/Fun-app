@@ -1,6 +1,11 @@
 import './adminPanelStyle.css'
 import {useState} from "react";
-import {deleteUser, getAllUsersBySimilarUsername, removeRoleOnUser, upgradeRoleOnUser} from "../../api/UserService";
+import {
+    deleteUser,
+    getAllUsersBySimilarUsername,
+    removeRoleOnUser,
+    upgradeRoleOnUser
+} from "../../api/service/UserService";
 import {isAdmin} from "../../api/hoc/isAdmin";
 
 const AdminPanel = () => {
@@ -74,21 +79,21 @@ const AdminPanel = () => {
                 <form onSubmit={onUpgradeRole} className={'role-manage'}>
                     <p>Add Admin role to a user</p>
                     <label>Enter username (min 2 symbols)</label>
-                    <input name='username' onKeyUp={fetchUsers}/>
-                    <button type="submit">Add</button>
+                    <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
+                    <button type="submit"><i className="fas fa-plus"></i> Add</button>
                 </form>
                 <form onSubmit={onDeleteUser} className={'role-manage'}>
                     <p>Delete user immediately</p>
                     <label>Enter username (min 2 symbols)</label>
-                    <input name='username' onKeyUp={fetchUsers}/>
-                    <button type="submit">Delete</button>
+                    <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
+                    <button type="submit"><i className="fas fa-eraser"></i> Delete</button>
                 </form>
                 <form onSubmit={onRemoveRole} className={'role-manage'}>
 
                     <p>Remove Admin role of a user</p>
                     <label>Enter username (min 2 symbols)</label>
-                    <input name='username' onKeyUp={fetchUsers}/>
-                    <button type="submit">Remove</button>
+                    <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
+                    <button type="submit"><i className="fas fa-minus"></i> Remove</button>
                 </form>
             </div>
             {

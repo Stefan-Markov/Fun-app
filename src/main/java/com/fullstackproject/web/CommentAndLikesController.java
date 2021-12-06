@@ -1,9 +1,9 @@
 package com.fullstackproject.web;
 
 import com.fullstackproject.errorHandling.ErrorRest;
-import com.fullstackproject.models.Comment;
-import com.fullstackproject.models.Joke;
-import com.fullstackproject.models.Likes;
+import com.fullstackproject.models.entities.Comment;
+import com.fullstackproject.models.entities.Joke;
+import com.fullstackproject.models.entities.Likes;
 import com.fullstackproject.models.dto.CommentDto;
 import com.fullstackproject.repositories.CommentRepository;
 import com.fullstackproject.repositories.JokeRepository;

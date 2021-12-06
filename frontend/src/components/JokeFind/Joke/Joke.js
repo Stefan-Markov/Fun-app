@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {addLike, getJokeById, onAddComment, onDeleteComment} from "../../../api/JokeService";
+import {addLike, getJokeById, onAddComment, onDeleteComment} from "../../../api/service/JokeService";
 import './jokeStyle.css'
 
 const Joke = () => {

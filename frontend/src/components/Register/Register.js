@@ -1,8 +1,8 @@
 import {Link, useNavigate} from "react-router-dom";
 import '../Login/formStyle.css'
 import {useState} from "react";
-import * as userService from '../../api/UserService'
-import * as AuthenticationService from "../../api/AuthenticationService";
+import * as userService from '../../api/service/UserService'
+import * as AuthenticationService from "../../api/service/AuthenticationService";
 
 const Register = ({onLogin}) => {
     let navigate = useNavigate();
@@ -10,7 +10,7 @@ const Register = ({onLogin}) => {
         {notMatch: false},
         {allFields: false}
     );
-    let [dbError, seTdbError] = useState([]);
+    let [dbError, setDbError] = useState([]);
 
     const onSubmitRegister = (e) => {
         e.preventDefault();
@@ -47,12 +47,12 @@ const Register = ({onLogin}) => {
             .then(data => {
                 if (data.code === 401) {
                     let errors = data.cause.split(', ');
-                    seTdbError(errors);
+                    setDbError(errors);
                     e.target.password.value = '';
                     e.target.repassword.value = '';
                     return;
                 }
-                seTdbError([]);
+                setDbError([]);
                 AuthenticationService
                     .authJwtService(username, password)
                     .then((response) => {

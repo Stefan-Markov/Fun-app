@@ -1,6 +1,6 @@
 package com.fullstackproject.repositories;
 
-import com.fullstackproject.models.Joke;
+import com.fullstackproject.models.entities.Joke;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
