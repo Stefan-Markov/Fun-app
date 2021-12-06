@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import {Routes, Route} from 'react-router-dom';
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import Logout from "./components/Logout";
+import Logout from "./components/Logout/Logout";
 import JokeAdd from "./components/Joke/JokeAdd/JokeAdd";
 import ManageJoke from "./components/Joke/ManageJoke/ManageJoke";
 import JokeById from "./components/Joke/JokeById/JokeById";

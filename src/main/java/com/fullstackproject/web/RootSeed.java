@@ -16,7 +16,9 @@ public class RootSeed implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-
+    private final String USERNAME = "leonkov";
+    private final String EMAIL = "leo@abv.bg";
+    private final String PASSWORD = "33333";
 
     public RootSeed(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -35,10 +37,10 @@ public class RootSeed implements CommandLineRunner {
             User user = new User();
             user
                     .setAuthorities(roleService.findAllRoles())
-                    .setUsername("leonkov")
+                    .setUsername(USERNAME)
                     .setCreatedDate(LocalDateTime.now())
-                    .setEmail("leo@abv.bg")
-                    .setPassword(this.passwordEncoder.encode("33333"));
+                    .setEmail(EMAIL)
+                    .setPassword(this.passwordEncoder.encode(PASSWORD));
 
             this.userRepository.save(user);
         }

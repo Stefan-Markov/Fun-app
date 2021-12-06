@@ -13,7 +13,7 @@ Back end
 - 5 Repositories
 - @Async is used - create new thread for the operation, while the DB still indexing and returning the result
 - JWT projection with claims: username, roles
-- JWT validate and refresh
+- JWT validate, authenticate and refresh procedures
 - Error handling
 - Validate data consuming
 - Data quality protect
@@ -58,4 +58,6 @@ Functionality
 - Dynamic component interaction based on user actions
 - Private part, user part, admin part
 - Navigation bar changed based on roles
+- Proper error(data quality requirements from inputs) fallback and render to user
+- 
 
