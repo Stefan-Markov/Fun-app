@@ -56,7 +56,6 @@ public class JokeController {
             List<String> message = new ArrayList<>();
             errorRest.setCode(401);
             for (FieldError e : errors) {
-//                message.add(e.getField() + " : " + e.getDefaultMessage());
                 message.add(e.getDefaultMessage());
             }
 

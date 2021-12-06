@@ -5,11 +5,11 @@ function AdminGuard() {
     let location = useLocation();
     let roles = sessionStorage.getItem('roles');
 
-    if(roles) {
+    if (roles) {
         if (!roles.includes('ROLE_ADMIN')) {
             return <Navigate to="/" state={{from: location}}/>;
         }
-    }else {
+    } else {
         return <Navigate to="/" state={{from: location}}/>;
     }
     return <Outlet/>;

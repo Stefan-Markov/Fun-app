@@ -4,7 +4,6 @@ import com.fullstackproject.errorHandling.ErrorRest;
 import com.fullstackproject.models.Comment;
 import com.fullstackproject.models.Joke;
 import com.fullstackproject.models.Likes;
-import com.fullstackproject.models.User;
 import com.fullstackproject.models.dto.CommentDto;
 import com.fullstackproject.repositories.CommentRepository;
 import com.fullstackproject.repositories.JokeRepository;
@@ -21,7 +20,6 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.fullstackproject.constants.Constants.API_HOST;
 
@@ -95,8 +93,6 @@ public class CommentAndLikesController {
         like.setJoke(joke);
 
         this.likeRepository.save(like);
-
-
         return ResponseEntity.status(200).build();
 
     }
