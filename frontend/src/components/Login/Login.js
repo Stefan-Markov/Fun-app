@@ -3,13 +3,17 @@ import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from 'react'
 
 import * as AuthenticationService from "../../api/AuthenticationService";
+import {useAuth} from "../../api/contexts/AuthContext";
+import jwt from "jwt-decode";
 
 const Login = ({onLogin}) => {
+    const {login} = useAuth();
 
     let navigate = useNavigate();
     let [userInfo, setUserInfo] = useState({hasLoginFailed: false,});
     let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
     const onSubmitLogin = (e) => {
+
         e.preventDefault();
         let form = new FormData(e.target);
         let username = form.get('username');
@@ -27,6 +31,16 @@ const Login = ({onLogin}) => {
             .then((response) => {
                 AuthenticationService.login(username, response.data.token);
 
+                let decoded = jwt(response.data.token);
+                let roles = decoded['roles'];
+                roles = roles.map(x => x).join(' ');
+
+                let user = {
+                    authenticatedUser: username,
+                    token: response.data.token,
+                    roles: roles
+                }
+                login(user, true)
                 onLogin();
                 navigate('/');
             }).catch((err) => {
@@ -44,12 +58,12 @@ const Login = ({onLogin}) => {
             <form onSubmit={onSubmitLogin}>
                 <div className="user-box">
                     <input type="text" name="username" defaultValue=''
-                           />
+                    />
                     <label>Username</label>
                 </div>
                 <div className="user-box">
                     <input type="password" name="password" defaultValue=''
-                          />
+                    />
                     <label>Password</label>
                 </div>
                 <button type="submit">

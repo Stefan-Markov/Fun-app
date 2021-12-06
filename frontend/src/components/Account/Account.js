@@ -5,11 +5,11 @@ import './accountStyle.css'
 import {Link} from "react-router-dom";
 
 const Account = () => {
-
     let username = sessionStorage.getItem('authenticatedUser');
     let [user, setUser] = useState([]);
     let [date, setDate] = useState([]);
     let [roles, setRoles] = useState([]);
+
     useEffect(() => {
         getUserByUsername(username)
             .then(res => res.json())

@@ -4,15 +4,16 @@ Back end
 - MySQL DB
 - 5 independent entities
 - 3 type of roles - ROOT, ADMIN, USER
-- Managable roles
+- Manageable roles
 - Spring security
 - Custom security methods
-- JPQL and navite queries
+- JPQL and native queries
 - Spring SpEl
 - Secure routes, controllers, password, internal state of app
 - 5 Repositories
 - @Async is used - create new thread for the operation, while the DB still indexing and returning the result
-- JWT projection
+- JWT projection with claims: username, roles
+- JWT validate and refresh
 - Error handling
 - Validate data consuming
 - Data quality protect
@@ -24,13 +25,17 @@ Front end
 - CSS local manage strategy
 - Route guards
 - Context 
+- Error boundary
 - Hooks approach
 - Components segregation
-- Consume JWT
+- Consume JWT for Auth
+- Consume JSON from Spring 
 - App on parts - private part, part for guest, part for admin
 
 Functionality
-- Login, Logout, Register
+- Login
+- Register
+- Logout
 - Create User
 - Create Joke
 - Manage joke
@@ -46,5 +51,10 @@ Functionality
 - Consume DB information based on search by keywords and show dynamic content
 - Validate user data inputs and show proper message, if needed
 - Search engines to fetch data from DB and show dynamic content based on input
-- Rendering items based on colletions, ids,data or inputs
+- Search user by username, roles
+- Search joke by keyword (by regex)
+- Rendering items based on colletions, ids, data or inputs
+- Dynamic component interaction based on user actions
+- Private part, user part, admin part
+- Navigation bar changed based on roles
 

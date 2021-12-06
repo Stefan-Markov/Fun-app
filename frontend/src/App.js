@@ -6,7 +6,6 @@ import {Routes, Route} from 'react-router-dom';
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout";
-import * as AuthenticationService from "./api/AuthenticationService";
 import JokeAdd from "./components/Joke/JokeAdd/JokeAdd";
 import ManageJoke from "./components/Joke/ManageJoke/ManageJoke";
 import JokeById from "./components/Joke/JokeById/JokeById";
@@ -19,10 +18,12 @@ import AuthGuard from "./components/RouteGuards/AuthGuard";
 import NoAuthGuard from "./components/RouteGuards/NoAuthGuard";
 import AdminGuard from "./components/RouteGuards/AdminGuard";
 import ErrorCatch from "./api/ErrorBound/ErrorCatch";
+import {AuthProvider} from "./api/contexts/AuthContext";
+import * as AuthenticationService from "./api/AuthenticationService";
 
 function App() {
 
-    const [userInfo, setUserInfo] = useState({isAuthenticated: false, username: ''});
+    const [userInfo, setUserInfo] = useState({isAuthenticated: false});
 
     useEffect(() => {
         let user = AuthenticationService.getLoggedInUserName();
@@ -37,7 +38,6 @@ function App() {
             isAuthenticated: true,
             user: username,
         })
-
     }
 
     const onLogout = () => {
@@ -50,35 +50,37 @@ function App() {
 
     return (
         <ErrorCatch>
-            <div>
-                <NavBar {...userInfo}/>
-                <Routes>
-                    <Route path={'/'} element={<Home/>}/>
+            <AuthProvider>
+                <div>
+                    <NavBar {...userInfo} />
+                    <Routes>
+                        <Route path={'/'} element={<Home/>}/>
 
-                    <Route element={<NoAuthGuard/>}>
-                        <Route path={'/login'} element={<Login onLogin={onLogin}/>}/>
-                        <Route path={'/register'} element={<Register onLogin={onLogin}/>}/>
-                    </Route>
+                        <Route element={<NoAuthGuard/>}>
+                            <Route path={'/login'} element={<Login onLogin={onLogin}/>}/>
+                            <Route path={'/register'} element={<Register onLogin={onLogin}/>}/>
+                        </Route>
 
-                    <Route element={<AuthGuard/>}>
-                        <Route path={'/logout'} element={<Logout onLogout={onLogout}/>}/>
-                        <Route path={'/joke-add'} element={<JokeAdd/>}/>
-                        <Route path={'/joke/:id'} element={<JokeById/>}/>
-                        <Route path={`/joke-manage`} element={<ManageJoke/>}/>
-                        <Route path={`/account`} element={<Account/>}/>
-                        <Route path={`/joke-find`} element={<JokeFind/>}/>
-                        <Route path={`/joke-read/:id`} element={<Joke/>}/>
-                    </Route>
+                        <Route element={<AuthGuard/>}>
+                            <Route path={'/logout'} element={<Logout onLogout={onLogout}/>}/>
+                            <Route path={'/joke-add'} element={<JokeAdd/>}/>
+                            <Route path={'/joke/:id'} element={<JokeById/>}/>
+                            <Route path={`/joke-manage`} element={<ManageJoke/>}/>
+                            <Route path={`/account`} element={<Account/>}/>
+                            <Route path={`/joke-find`} element={<JokeFind/>}/>
+                            <Route path={`/joke-read/:id`} element={<Joke/>}/>
+                        </Route>
 
-                    <Route element={<AdminGuard/>}>
-                        <Route path={`/admin`} element={<AdminPanel/>}/>
-                    </Route>
+                        <Route element={<AdminGuard/>}>
+                            <Route path={`/admin`} element={<AdminPanel/>}/>
+                        </Route>
 
-                    <Route path={`/*`} element={<NoData/>}/>
+                        <Route path={`/*`} element={<NoData/>}/>
 
-                </Routes>
-                <Footer/>
-            </div>
+                    </Routes>
+                    <Footer/>
+                </div>
+            </AuthProvider>
         </ErrorCatch>
     );
 }
