@@ -10,7 +10,7 @@ Back end
 - JPQL and native queries
 - Spring SpEl
 - Secure routes, controllers, password, internal state of app
-- 5 Repositories
+- 6 Repositories
 - JPA
 - @Async is used - create new thread for the operation, while the DB still indexing and returning the result
 - JWT projection with claims: username, roles
@@ -38,7 +38,9 @@ Functionality
 - Login
 - Register
 - Logout
-- Create User
+- Create user
+- Delete user
+- Add or remove admin role
 - Create Joke
 - Manage joke
 - Edit joke
