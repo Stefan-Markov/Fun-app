@@ -1,6 +1,12 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {addLike, getJokeById, onAddComment, onDeleteComment} from "../../../api/service/JokeService";
+import {
+    addFavouriteJokeToUser,
+    addLike,
+    getJokeById,
+    onAddComment,
+    onDeleteComment
+} from "../../../api/service/JokeService";
 import './jokeStyle.css'
 
 const Joke = () => {
@@ -70,15 +76,12 @@ const Joke = () => {
     }
 
     function deleteComment(id) {
-        try {
             onDeleteComment(id).then(res => res.json())
                 .then(data => {
                     let filteredComments = comments.filter(x => x.id !== data.id);
                     setComments(filteredComments);
                 })
                 .catch(err => err);
-        } catch (err) {
-        }
     }
 
     function addLikeToJoke(username, id) {
@@ -88,6 +91,12 @@ const Joke = () => {
         setLikes(likes + 1);
         setAllReadyLiked(true);
         setPeopleWhoLiked(oldState => [...oldState, ", " + username]);
+    }
+
+    function addToFavourites(username, id) {
+        addFavouriteJokeToUser(username, id)
+            .then(data => data.json())
+            .catch(err => err);
     }
 
     return (
@@ -107,6 +116,11 @@ const Joke = () => {
                 <div className={'read-head heading'}><i className="fas fa-file-alt"></i> Content</div>
                 <p className={'read-content'}>{joke.content}</p>
                 <div>
+                    <button className={'button-like'} onClick={() => addToFavourites(username, joke.id)}>
+                        <i className="fas fa-arrow-up"></i> Click to add to favourites this joke
+                        <i className="fas fa-arrow-up"></i>
+                    </button>
+
                     {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
                         :
                         <button className={'button-like'} onClick={() => addLikeToJoke(username, joke.id)}>

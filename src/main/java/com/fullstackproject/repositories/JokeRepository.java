@@ -19,11 +19,11 @@ public interface JokeRepository extends JpaRepository<Joke, String> {
     List<Joke> findLastThree();
 
     @Query("select j from Joke as j  where j.keyword like %:keyword%")
-//    @Query(nativeQuery = true,
-//            value = "select * from jokes as j where (j.keyword REGEXP :keyword)")
     List<Joke> findAllByKeyword(@Param("keyword") String keyword);
 
 
     @Query("select j from Joke as j order by  j.likes.size desc ")
     List<Joke> findJokeWithMostLikes();
+
+
 }

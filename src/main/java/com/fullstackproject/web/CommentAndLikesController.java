@@ -94,6 +94,5 @@ public class CommentAndLikesController {
 
         this.likeRepository.save(like);
         return ResponseEntity.status(200).build();
-
     }
 }

@@ -1,21 +1,21 @@
 import {getUserByUsername} from "../../api/service/UserService";
 import {useEffect, useState} from "react";
-import JokeCard from "../Joke/ManageJoke/JokeCard/JokeCard";
 import './accountStyle.css'
 import {Link} from "react-router-dom";
+import {getFavouritesJokeByUsername} from "../../api/service/JokeService";
+import JokeFav from "./JokeFav";
 
 const Account = () => {
     let username = sessionStorage.getItem('authenticatedUser');
     let [user, setUser] = useState([]);
     let [date, setDate] = useState([]);
     let [roles, setRoles] = useState([]);
-
+    let [favouritesJoke, setFavouritesJoke] = useState([]);
     useEffect(() => {
         getUserByUsername(username)
             .then(res => res.json())
             .then(data => {
                 setUser(data)
-
                 setRoles(data.authorities.map(x => x.authority + " "));
                 let date = data.createdDate[0] + "-" + data.createdDate[1] + "-" + data.createdDate[2];
 
@@ -24,6 +24,14 @@ const Account = () => {
             .catch(err => err);
     }, [username])
 
+
+    useEffect(() => {
+        getFavouritesJokeByUsername(username)
+            .then(res => res.json())
+            .then(data => {
+                setFavouritesJoke(data);
+            })
+    }, [username]);
     roles = roles.map(x => x.toLowerCase().replace('role_', ' ')).join(', ');
 
     let usernameData = user.username;
@@ -39,14 +47,15 @@ const Account = () => {
                 {date === 'Invalid date' ? '' : <p> Date joined: {date}</p>}
                 <p>Roles: {roles}</p>
             </div>
+            <div className={'div-buttons'}>
+                <Link className={'link pad'} to={'/joke-add'}>Create joke here</Link>
+                <Link className={'link pad'} to={'/joke-find'}>Find jokes here</Link>
+            </div>
+            <div className={'wrap-cards fav'}>
+                <p className={'title-fav'}>Favourites jokes</p>
 
-            <div className={'wrap-cards'}>
-
-                <Link className={'link'} to={'/joke-add'}>Create joke here</Link>
-
-                {user.joke ? user.joke.map(x => <JokeCard key={x.id} joke={x}/>) :
-                    ''
-                }
+                {favouritesJoke.length ? favouritesJoke.map(x => <JokeFav key={x.id} joke={x} username={username} />)
+                    : <div className={'fav-no'}>No favourites joke for now</div>}
             </div>
         </div>
     );

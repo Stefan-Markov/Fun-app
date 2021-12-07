@@ -9,11 +9,12 @@ const JokeById = () => {
     let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
     let [dbError, setDbError] = useState([]);
     let navigate = useNavigate();
+    let [names, setNames] = useState({username: '', user: ''})
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
             .then(data => {
-
+                setNames({username: sessionStorage.getItem('authenticatedUser'), user: data.creator})
                 setJoke(data);
             })
             .catch(err => err);
@@ -25,7 +26,6 @@ const JokeById = () => {
         let title = form.get('title');
         let content = form.get('content');
         let keyword = form.get('keyword');
-
         if (!title || !content || !keyword) {
             seTFieldsCheck({allFields: true});
             return;
@@ -46,6 +46,14 @@ const JokeById = () => {
             .catch(err => err);
 
     }
+
+    useEffect(() => {
+        let owner = names.user === names.username;
+        if (!owner) {
+            navigate('/');
+        }
+    },[names])
+
 
     function onDelete(e) {
         e.preventDefault();

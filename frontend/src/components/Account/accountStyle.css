@@ -4,7 +4,7 @@
 
     justify-content: center;
     align-items: center;
-    margin: 20px;
+    margin: 20px 20px 40px;
 }
 
 .wrap-main {
@@ -21,4 +21,31 @@
     font-size: 35px;
     border-top-right-radius: 60px;
     border-bottom-left-radius: 60px;
+}
+
+.fav {
+    background-color: lightskyblue;
+    border-radius: 30px;
+}
+
+.pad {
+    margin: 20px 20px 50px;
+}
+
+.title-fav {
+    color: black;
+    border-bottom: 3px solid orange;
+    font-weight: bolder;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+.fav-no {
+    margin: 20px;
+}
+
+.div-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

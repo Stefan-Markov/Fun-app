@@ -1,11 +1,10 @@
 package com.fullstackproject.web;
 
 import com.fullstackproject.errorHandling.ErrorRest;
-import com.fullstackproject.models.entities.Comment;
-import com.fullstackproject.models.entities.Joke;
-import com.fullstackproject.models.entities.User;
+import com.fullstackproject.models.entities.*;
 import com.fullstackproject.models.dto.JokeDTO;
 import com.fullstackproject.models.dto.JokeEditDTO;
+import com.fullstackproject.repositories.FavouritesJokeRepository;
 import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -34,11 +33,13 @@ public class JokeController {
     private final UserRepository userRepository;
     private final JokeRepository jokeRepository;
     private final ModelMapper modelMapper;
+    private final FavouritesJokeRepository favouritesJokeRepository;
 
-    public JokeController(UserRepository userRepository, JokeRepository jokeRepository, ModelMapper modelMapper) {
+    public JokeController(UserRepository userRepository, JokeRepository jokeRepository, ModelMapper modelMapper, FavouritesJokeRepository favouritesJokeRepository) {
         this.userRepository = userRepository;
         this.jokeRepository = jokeRepository;
         this.modelMapper = modelMapper;
+        this.favouritesJokeRepository = favouritesJokeRepository;
     }
 
 
@@ -162,5 +163,39 @@ public class JokeController {
         List<Joke> joke = this.jokeRepository.findJokeWithMostLikes()
                 .stream().limit(1).collect(Collectors.toList());
         return ResponseEntity.status(200).body(joke);
+    }
+
+    @PostMapping("/favourite/:{id}/:{username}")
+    public ResponseEntity<?> addLike(@PathVariable String id, @PathVariable String username) {
+
+        Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
+
+        if (already != null) {
+            return ResponseEntity.status(200).build();
+        }
+
+        Favourites favourites = new Favourites();
+        favourites.setUsername(username);
+        favourites.setJokeId(id);
+
+        this.favouritesJokeRepository.save(favourites);
+        return ResponseEntity.status(200).build();
+    }
+
+    @GetMapping("/favourites/:{username}")
+    public ResponseEntity<?> getAllFavouritesByUsername(@PathVariable String username) {
+
+        List<String> jokeIds = this.favouritesJokeRepository.findAllByUsername(username);
+        List<Joke> jokes = new ArrayList<>();
+
+        if (jokeIds.size() == 0) {
+            return ResponseEntity.status(200).build();
+        }
+
+        for (String id : jokeIds) {
+            Joke joke = this.jokeRepository.findById(id).get();
+            jokes.add(joke);
+        }
+        return ResponseEntity.status(200).body(jokes);
     }
 }

@@ -118,3 +118,23 @@ export function getJokeByMostLikes() {
         });
 }
 
+
+export function getFavouritesJokeByUsername(username) {
+    return fetch(`${API_URL}/favourites/:${username}`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+}
+
+
+export function addFavouriteJokeToUser(username, id) {
+    return fetch(`${API_URL}/favourite/:${id}/:${username}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+    });
+}

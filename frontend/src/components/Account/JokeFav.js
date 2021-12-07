@@ -1,7 +1,6 @@
-import {Link} from "react-router-dom";
-import './jokeCardStyle.css'
+import '../Joke/ManageJoke/JokeCard/jokeCardStyle.css'
 
-const JokeCard = ({joke}) => {
+const JokeFav = ({joke}) => {
     return (
         <section className={'main-section'}>
             <div className={'content'}>
@@ -12,10 +11,8 @@ const JokeCard = ({joke}) => {
                 <p><i className="fas fa-user"></i> <span className={'property'}>Created by:</span> {joke.creator}</p>
                 <p><i className="fas fa-key"></i> <span className={'property'}>Keyword:</span> {joke.keyword}</p>
             </div>
-            <Link className={'link'} to={`/joke/${joke.id}`}>Edit joke</Link>
-
         </section>
     );
 }
 
-export default JokeCard;
+export default JokeFav;

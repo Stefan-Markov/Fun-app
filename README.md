@@ -2,7 +2,7 @@
 Full stack project with React, Spring, MySQL.
 Back end
 - MySQL DB
-- 5 independent entities
+- over 6 independent entities
 - 3 type of roles - ROOT, ADMIN, USER
 - Manageable roles
 - Spring security
@@ -11,6 +11,7 @@ Back end
 - Spring SpEl
 - Secure routes, controllers, password, internal state of app
 - 5 Repositories
+- JPA
 - @Async is used - create new thread for the operation, while the DB still indexing and returning the result
 - JWT projection with claims: username, roles
 - JWT validate, authenticate and refresh procedures
@@ -42,7 +43,8 @@ Functionality
 - Manage joke
 - Edit joke
 - Delete joke
-- Add comment 
+- Add joke to favourites
+- Add comment
 - Delete comment 
 - Read comments
 - Add likes

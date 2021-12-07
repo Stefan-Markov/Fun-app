@@ -117,5 +117,4 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
         return this;
     }
-
 }
