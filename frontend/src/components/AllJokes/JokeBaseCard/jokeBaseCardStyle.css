@@ -5,6 +5,7 @@
     margin: 10px;
     font-size: 1.2rem;
     line-height: 2;
+
 }
 
 .joke-card-link {
@@ -12,12 +13,17 @@
     padding: 10px 20px;
     margin-top: 40px;
     font-size: 1.5rem;
-    /*border-bottom: 3px solid orange;*/
     background-color: orange;
+    font-weight: bolder;
+    font-family: Futura, serif;
 }
-.joke-card-link:hover{
-    background-color: goldenrod;
+
+.joke-card-link:hover {
+    background-color: pink;
+    border-radius: 30px;
 }
-.joke-card-data{
+
+.joke-card-data {
+    font-family: "American Typewriter", serif;
     color: lightblue;
 }
