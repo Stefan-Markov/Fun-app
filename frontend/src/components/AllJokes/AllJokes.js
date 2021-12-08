@@ -14,7 +14,6 @@ const AllJokes = () => {
                 setJokes(data);
             });
     }, []);
-    console.log(jokes)
     return (
         <>
             <h1>All jokes</h1>

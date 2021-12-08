@@ -23,7 +23,7 @@ public class CommentDto {
     }
 
     @NotNull(message = "Please provide at least 2 symbols to comment")
-    @Length(min = 2, message = "Enter at least 2 symbols for content!")
+    @Length(min = 2, max = 2000, message = "Enter at least 2 symbols for content!")
     public String getContent() {
         return content;
     }

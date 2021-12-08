@@ -26,7 +26,7 @@ public class JokeEditDTO {
     }
 
     @NotNull(message = "Enter valid content!")
-    @Length(min = 3, message = "Enter at least 3 symbols for content!")
+    @Length(min = 3, max = 2000, message = "Enter at least 3 symbols for content!")
     public String getContent() {
         return content;
     }
