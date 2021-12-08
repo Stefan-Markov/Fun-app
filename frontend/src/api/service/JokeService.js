@@ -138,3 +138,12 @@ export function addFavouriteJokeToUser(username, id) {
         }
     });
 }
+export function deleteFavJokeByUsernameAndId(username,id) {
+    return fetch(`${API_URL}/favourite/:${id}/:${username}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+}

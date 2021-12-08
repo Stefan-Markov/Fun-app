@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {
     addFavouriteJokeToUser,
     addLike,
+    getFavouritesJokeByUsername,
     getJokeById,
     onAddComment,
     onDeleteComment
@@ -20,6 +21,8 @@ const Joke = () => {
     let [allReadyLiked, setAllReadyLiked] = useState(false);
     let [added, setAdded] = useState([]);
     let [peopleWhoLiked, setPeopleWhoLiked] = useState([]);
+    let [favJoke, setFavJoke] = useState();
+
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
@@ -39,6 +42,13 @@ const Joke = () => {
             })
             .catch(err => err);
     }, [id.id]);
+
+        getFavouritesJokeByUsername(username)
+            .then(res => res.json())
+            .then(data => {
+                let already = data.some(x => x.id === joke.id);
+                setFavJoke(already);
+            }).catch(err => err);
 
 
     function addCommentSubmit(e) {
@@ -76,12 +86,12 @@ const Joke = () => {
     }
 
     function deleteComment(id) {
-            onDeleteComment(id).then(res => res.json())
-                .then(data => {
-                    let filteredComments = comments.filter(x => x.id !== data.id);
-                    setComments(filteredComments);
-                })
-                .catch(err => err);
+        onDeleteComment(id).then(res => res.json())
+            .then(data => {
+                let filteredComments = comments.filter(x => x.id !== data.id);
+                setComments(filteredComments);
+            })
+            .catch(err => err);
     }
 
     function addLikeToJoke(username, id) {
@@ -97,6 +107,9 @@ const Joke = () => {
         addFavouriteJokeToUser(username, id)
             .then(data => data.json())
             .catch(err => err);
+        setFavJoke(true);
+
+
     }
 
     return (
@@ -116,10 +129,13 @@ const Joke = () => {
                 <div className={'read-head heading'}><i className="fas fa-file-alt"></i> Content</div>
                 <p className={'read-content'}>{joke.content}</p>
                 <div>
-                    <button className={'button-like'} onClick={() => addToFavourites(username, joke.id)}>
-                        <i className="fas fa-arrow-up"></i> Click to add to favourites this joke
-                        <i className="fas fa-arrow-up"></i>
-                    </button>
+                    {favJoke ?
+                        <p className={'all-ready-liked'}>Already added to favourites joke </p> :
+                        <button className={'button-like'} onClick={() => addToFavourites(username, joke.id)}>
+                            <i className="fas fa-arrow-up"></i> Click to add to favourites this joke
+                            <i className="fas fa-arrow-up"></i>
+                        </button>
+                    }
 
                     {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
                         :

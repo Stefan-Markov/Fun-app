@@ -166,7 +166,7 @@ public class JokeController {
     }
 
     @PostMapping("/favourite/:{id}/:{username}")
-    public ResponseEntity<?> addLike(@PathVariable String id, @PathVariable String username) {
+    public ResponseEntity<?> addFavJoke(@PathVariable String id, @PathVariable String username) {
 
         Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
 
@@ -198,4 +198,19 @@ public class JokeController {
         }
         return ResponseEntity.status(200).body(jokes);
     }
+
+    @DeleteMapping("/favourite/:{id}/:{username}")
+    @ResponseBody
+    public ResponseEntity<?> deleteFavJoke(@PathVariable String id, @PathVariable String username) {
+
+        Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
+
+        if (already != null) {
+            this.favouritesJokeRepository.delete(already);
+            return ResponseEntity.status(200).body(already);
+        }
+
+        return ResponseEntity.status(200).body(0);
+    }
+
 }

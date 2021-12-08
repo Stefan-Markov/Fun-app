@@ -2,7 +2,7 @@ import {getUserByUsername} from "../../api/service/UserService";
 import {useEffect, useState} from "react";
 import './accountStyle.css'
 import {Link} from "react-router-dom";
-import {getFavouritesJokeByUsername} from "../../api/service/JokeService";
+import {deleteFavJokeByUsernameAndId, getFavouritesJokeByUsername} from "../../api/service/JokeService";
 import JokeFav from "./JokeFav";
 
 const Account = () => {
@@ -30,8 +30,19 @@ const Account = () => {
             .then(res => res.json())
             .then(data => {
                 setFavouritesJoke(data);
-            })
+            }).catch(err => err)
     }, [username]);
+
+    function deleteFavJoke({username, id}) {
+
+        deleteFavJokeByUsernameAndId(username, id)
+            .then(res => res.json())
+            .then(data => {
+                let filteredFavJokes = favouritesJoke.filter(x => x.id !== data.jokeId);
+                setFavouritesJoke(filteredFavJokes);
+            }).catch(err => console.log(err))
+    }
+
     roles = roles.map(x => x.toLowerCase().replace('role_', ' ')).join(', ');
 
     let usernameData = user.username;
@@ -54,7 +65,8 @@ const Account = () => {
             <div className={'wrap-cards fav'}>
                 <p className={'title-fav'}>Favourites jokes</p>
 
-                {favouritesJoke.length ? favouritesJoke.map(x => <JokeFav key={x.id} joke={x} username={username} />)
+                {favouritesJoke.length ? favouritesJoke.map(x => <JokeFav key={x.id} joke={x} username={username}
+                                                                          deleteFavJoke={deleteFavJoke}/>)
                     : <div className={'fav-no'}>No favourites joke for now</div>}
             </div>
         </div>

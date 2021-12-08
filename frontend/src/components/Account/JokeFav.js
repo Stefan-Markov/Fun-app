@@ -1,6 +1,7 @@
 import '../Joke/ManageJoke/JokeCard/jokeCardStyle.css'
 
-const JokeFav = ({joke}) => {
+const JokeFav = ({joke, username, deleteFavJoke}) => {
+
     return (
         <section className={'main-section'}>
             <div className={'content'}>
@@ -10,6 +11,9 @@ const JokeFav = ({joke}) => {
                 </p>
                 <p><i className="fas fa-user"></i> <span className={'property'}>Created by:</span> {joke.creator}</p>
                 <p><i className="fas fa-key"></i> <span className={'property'}>Keyword:</span> {joke.keyword}</p>
+                <button onClick={() => deleteFavJoke({username,id: joke.id})} className={'button-joke-edit'}>Remove favourite joke
+                </button>
+
             </div>
         </section>
     );

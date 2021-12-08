@@ -1,6 +1,8 @@
 # Fun-app
 Full stack project with React, Spring, MySQL.
+
 Back end
+
 - MySQL DB
 - over 6 independent entities
 - 3 type of roles - ROOT, ADMIN, USER
@@ -22,6 +24,7 @@ Back end
 - REST controllers architecture to communicate on frond end with React
 
 Front end
+
 - React functional approach
 - CSS local manage strategy
 - Route guards
@@ -35,6 +38,7 @@ Front end
 - App on parts - private part, part for guest, part for admin
 
 Functionality
+
 - Login
 - Register
 - Logout
