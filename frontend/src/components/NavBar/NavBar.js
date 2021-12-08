@@ -7,19 +7,21 @@ const NavBar = () => {
     let user = sessionStorage.getItem('authenticatedUser');
     let yes = (
         <>
-            <NavLink to={'/'}>
+            <NavLink to={'/'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Home <i className="fas fa-home"></i></li>
             </NavLink>
-            <NavLink to={'/joke-add'}>
-                <li className={'navbar'}> Add joke <i className="fas fa-plus-square"></i></li>
+            <NavLink to={'/joke-add'}
+                     className={({isActive}) => "" + (isActive ? "active" : "")}>
+                <li className={'navbar'}
+                > Add joke <i className="fas fa-plus-square"></i></li>
             </NavLink>
-            <NavLink to={'/account'}>
+            <NavLink to={'/account'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Account <i className="fas fa-user-circle"></i></li>
             </NavLink>
-            <NavLink to={'/joke-find'}>
+            <NavLink to={'/joke-find'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Find joke <i className="fas fa-puzzle-piece"></i></li>
             </NavLink>
-            <NavLink to={`/joke-manage`}>
+            <NavLink to={`/joke-manage`} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Joke manage <i className="fas fa-tasks"></i></li>
             </NavLink>
             <NavLink to={'/logout'}>
@@ -30,15 +32,15 @@ const NavBar = () => {
 
     let no = (
         <>
-            <NavLink to={'/login'}>
+            <NavLink to={'/login'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}>Login <i className="fas fa-sign-in-alt"></i></li>
             </NavLink>
-            <NavLink to={'/register'}>
+            <NavLink to={'/register'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}>
                     Register <i className="fas fa-arrow-circle-up"></i>
                 </li>
             </NavLink>
-            <NavLink to={'/'}>
+            <NavLink to={'/'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Home <i className="fas fa-home"></i></li>
             </NavLink>
         </>
@@ -46,7 +48,7 @@ const NavBar = () => {
 
     let admin = (
         <>
-            <NavLink to={'/admin'}>
+            <NavLink to={'/admin'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Admin panel <i className="fas fa-user-shield"></i></li>
             </NavLink>
         </>
