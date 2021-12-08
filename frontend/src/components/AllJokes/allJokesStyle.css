@@ -1,0 +1,10 @@
+.wrap-all {
+    padding: 20px;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}

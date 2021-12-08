@@ -90,8 +90,8 @@ export function deleteJokeById({id}) {
         });
 }
 
-export  function getLastTheeJokes() {
-    return  fetch(`${API_URL}/lastTheeJokes`, {
+export function getLastTheeJokes() {
+    return fetch(`${API_URL}/lastTheeJokes`, {
         method: 'GET',
     });
 }
@@ -105,7 +105,6 @@ export function getJokesFromDbByKeyword(keyword) {
             }
         });
 }
-
 
 
 export function getJokeByMostLikes() {
@@ -138,11 +137,22 @@ export function addFavouriteJokeToUser(username, id) {
         }
     });
 }
-export function deleteFavJokeByUsernameAndId(username,id) {
+
+export function deleteFavJokeByUsernameAndId(username, id) {
     return fetch(`${API_URL}/favourite/:${id}/:${username}`, {
-            method: 'DELETE',
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+    });
+}
+
+export function getAllJokes() {
+    return fetch(`${API_URL}/find-all`,
+        {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
         });

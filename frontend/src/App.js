@@ -20,6 +20,7 @@ import AdminGuard from "./components/RouteGuards/AdminGuard";
 import ErrorCatch from "./api/errorBound/ErrorCatch";
 import {AuthProvider} from "./api/contexts/AuthContext";
 import * as AuthenticationService from "./api/service/AuthenticationService";
+import AllJokes from "./components/AllJokes/AllJokes";
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
                             <Route path={`/account`} element={<Account/>}/>
                             <Route path={`/joke-find`} element={<JokeFind/>}/>
                             <Route path={`/joke-read/:id`} element={<Joke/>}/>
+                            <Route path={`/find-all`} element={<AllJokes/>}/>
                         </Route>
 
                         <Route element={<AdminGuard/>}>

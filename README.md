@@ -55,6 +55,8 @@ Functionality
 - Delete comment 
 - Read comments
 - Add likes
+- Find joke by keyword
+- Browse all jokes
 - Check who already like the joke
 - Admin panel
 - Consume DB information based on search by keywords and show dynamic content

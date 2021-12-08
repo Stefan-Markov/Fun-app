@@ -166,6 +166,7 @@ public class JokeController {
     }
 
     @PostMapping("/favourite/:{id}/:{username}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addFavJoke(@PathVariable String id, @PathVariable String username) {
 
         Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
@@ -183,6 +184,7 @@ public class JokeController {
     }
 
     @GetMapping("/favourites/:{username}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getAllFavouritesByUsername(@PathVariable String username) {
 
         List<String> jokeIds = this.favouritesJokeRepository.findAllByUsername(username);
@@ -201,6 +203,7 @@ public class JokeController {
 
     @DeleteMapping("/favourite/:{id}/:{username}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteFavJoke(@PathVariable String id, @PathVariable String username) {
 
         Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
@@ -213,4 +216,13 @@ public class JokeController {
         return ResponseEntity.status(200).body(0);
     }
 
+
+    @GetMapping("/find-all")
+    @ResponseBody
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> findAllJokes() {
+        List<Joke> findAll = this.jokeRepository.findAll();
+
+        return ResponseEntity.status(200).body(findAll);
+    }
 }

@@ -54,6 +54,9 @@ const JokeFind = () => {
                         </li>)}</ul>
                 </div>
                 : ''}
+            <section className={'all-jokes'}>
+                <Link className={'link-all'} to={'/find-all'}> <i className="fas fa-list"></i> Here can view  all jokes</Link>
+            </section>
             <div className={'search-keyword-wrap'}>
                 <div className={'div-search-keyword-wrap'}>
                     <label className={'label'}>Find by keyword</label>

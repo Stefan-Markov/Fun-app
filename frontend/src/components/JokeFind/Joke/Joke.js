@@ -43,12 +43,12 @@ const Joke = () => {
             .catch(err => err);
     }, [id.id]);
 
-        getFavouritesJokeByUsername(username)
-            .then(res => res.json())
-            .then(data => {
-                let already = data.some(x => x.id === joke.id);
-                setFavJoke(already);
-            }).catch(err => err);
+    getFavouritesJokeByUsername(username)
+        .then(res => res.json())
+        .then(data => {
+            let already = data.some(x => x.id === joke.id);
+            setFavJoke(already);
+        }).catch(err => err);
 
 
     function addCommentSubmit(e) {

@@ -134,3 +134,26 @@
     border-top: 3px solid black;
     margin: 15px;
 }
+
+.all-jokes {
+    padding: 10px 20px;
+    background-color: #03e9f4;
+    width: 30vw;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.link-all {
+    font-size: 30px;
+    color: black;
+}
+
+.all-jokes:hover {
+    background-color: orange;
+}
