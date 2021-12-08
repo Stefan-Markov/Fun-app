@@ -50,6 +50,7 @@ Functionality
 - Edit joke
 - Delete joke
 - Add joke to favourites
+- Remove joke from favourites
 - Add comment
 - Delete comment 
 - Read comments
@@ -67,5 +68,7 @@ Functionality
 - Private part, user part, admin part
 - Navigation bar changed based on roles
 - Proper error(data quality requirements from inputs) fallback and render to user
-- 
+
+
+To run the app, please provide yours username and password to MySQL db in the app.props.
 
