@@ -11,9 +11,11 @@
 }
 
 .property {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: bold;
     min-width: 100%;
+    font-family: "Droid Serif", Serif, serif;
+    line-height: 1.4;
 }
 
 .link {
@@ -22,6 +24,11 @@
     background: #03e9f4;
     width: fit-content;
     color: black;
+}
+
+.link:hover {
+    background: darkgreen;
+    color: white;
 }
 
 .title {

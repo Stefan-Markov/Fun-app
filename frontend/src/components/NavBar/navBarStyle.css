@@ -39,6 +39,7 @@ li {
     background-color: beige;
     padding: 10px;
     color: orange;
+    font-family: Futura, sans-serif;
 }
 
 li:hover {

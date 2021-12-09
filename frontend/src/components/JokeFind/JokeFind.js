@@ -44,12 +44,11 @@ const JokeFind = () => {
     return (
         <>
             <h1>Find jokes and fun stories</h1>
-
             {mostLiked ?
                 <div className={'most-liked'}>
-                    <p>The most liked joke:</p>
+                    <p>Check the most liked joke:</p>
                     <ul className={'ul-usernames'}>{mostLiked.map(x =>
-                        <li key={x.id} className={'li-usernames'}>
+                        <li key={x.id} className={'li-usernames best-joke'}>
                             <Link className={'joke-read-link'} to={`/joke-read/${x.id}`}>{x.title}</Link>
                         </li>)}</ul>
                 </div>

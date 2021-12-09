@@ -73,11 +73,11 @@ const JokeById = () => {
                     .map(x => <div key={x} className={"warnings-edit"}>{x.replaceAll(/[\\[\]]/g, '')}</div>) : ''}
 
                 <div className={'wrap'}>
-                    <label>Title</label>
+                    <label className={'read-head'}>Title</label>
                     <input className={'edit-input title-edit'} name='title' defaultValue={joke.title}/>
-                    <label>Keyword</label>
+                    <label className={'read-head'}>Keyword</label>
                     <input className={'edit-input keyword'} name='keyword' defaultValue={joke.keyword}/>
-                    <label>Content</label>
+                    <label className={'read-head'}>Content</label>
                     <textarea className={'edit-input content-edit'} name='content' defaultValue={joke.content}/>
                     <button className={'button-joke-edit'}>Save changes</button>
                     <button onClick={onDelete} className={'button-joke-edit'}>Delete joke immediately</button>

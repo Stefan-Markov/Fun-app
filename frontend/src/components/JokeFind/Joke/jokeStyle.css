@@ -57,14 +57,12 @@
     padding: 30px;
     width: 50%;
     height: auto;
-    /*height: 300px;*/
     border-radius: 30px;
     word-break: break-word;
     border: 3px solid orange;
 }
 
 .read-head {
-
     text-align: center;
     color: black;
     font-size: 40px;

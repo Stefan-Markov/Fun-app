@@ -77,20 +77,19 @@ const AdminPanel = () => {
             {error ? <p className={'error-admin'}>{error}</p> : ''}
             <div className={'wrap-role-manage'}>
                 <form onSubmit={onUpgradeRole} className={'role-manage'}>
-                    <p>Add Admin role to a user</p>
+                    <p className={'admin-titles'}>Add Admin role to a user</p>
                     <label>Enter username (min 1 symbol)</label>
                     <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
                     <button type="submit"><i className="fas fa-plus"></i> Add</button>
                 </form>
                 <form onSubmit={onDeleteUser} className={'role-manage'}>
-                    <p>Delete user immediately</p>
+                    <p className={'admin-titles'}>Delete user immediately</p>
                     <label>Enter username (min 1 symbol)</label>
                     <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
                     <button type="submit"><i className="fas fa-eraser"></i> Delete</button>
                 </form>
                 <form onSubmit={onRemoveRole} className={'role-manage'}>
-
-                    <p>Remove Admin role of a user</p>
+                    <p className={'admin-titles'} >Remove Admin role of a user</p>
                     <label>Enter username (min 1 symbol)</label>
                     <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
                     <button type="submit"><i className="fas fa-minus"></i> Remove</button>

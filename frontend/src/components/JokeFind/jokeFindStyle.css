@@ -33,6 +33,7 @@
     color: black;
 }
 
+
 .lastThree {
     border-left: 5px solid orange;
     margin-right: auto;
@@ -46,11 +47,21 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background: lightgoldenrodyellow;
+    margin: 10px 0px;
 }
+
 
 .most-liked > p {
     color: orange;
     font-size: 30px;
 }
 
+.best-joke {
+    background: orange;
+}
 
+.best-joke:hover {
+    background: green;
+    color: white;
+}

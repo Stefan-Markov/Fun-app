@@ -25,6 +25,8 @@
 
 .role-manage > button:hover {
     cursor: pointer;
+    background: black;
+    color: orange;
 }
 
 
@@ -77,4 +79,11 @@
     background-color: orange;
     width: fit-content;
     border-radius: 20px;
+}
+
+.admin-titles {
+    font-family: Futura, sans-serif;
+    color: chocolate;
+
+
 }

@@ -11,6 +11,7 @@ import com.fullstackproject.repositories.LikeRepository;
 import com.fullstackproject.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -45,6 +46,7 @@ public class CommentAndLikesController {
 
     @PostMapping("/add/comment/:{jokeId}")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     public Object addCommentToJoke(@PathVariable String jokeId,
                                    @RequestBody @Valid CommentDto commentDto, BindingResult bindingResult) {
 
@@ -75,6 +77,7 @@ public class CommentAndLikesController {
     }
 
     @DeleteMapping("/add/comment/:{id}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteCommentById(@PathVariable String id) {
 
         Comment comment = this.commentRepository.findById(id).get();
@@ -85,6 +88,7 @@ public class CommentAndLikesController {
     }
 
     @PostMapping("/add/like/:{id}/:{username}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addLike(@PathVariable String id, @PathVariable String username) {
 
         Joke joke = this.jokeRepository.findById(id).get();
