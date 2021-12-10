@@ -23,7 +23,7 @@ const Joke = () => {
     let [allReadyLiked, setAllReadyLiked] = useState(false);
     let [added, setAdded] = useState([]);
     let [peopleWhoLiked, setPeopleWhoLiked] = useState([]);
-    let [favJoke, setFavJoke] = useState([]);
+    let [favJoke, setFavJoke] = useState();
 
     useEffect(() => {
         getJokeById(id.id)
@@ -45,12 +45,15 @@ const Joke = () => {
             .catch(err => err);
     }, [id.id, username]);
 
-    getFavouritesJokeByUsername(username)
-        .then(res => res.json())
-        .then(data => {
-            let already = data.some(x => x.id === joke.id);
-            setFavJoke(already);
-        }).catch(err => err);
+
+    useEffect(() => {
+        getFavouritesJokeByUsername(username)
+            .then(res => res.json())
+            .then(data => {
+                let already = data.some(x => x.id === joke.id);
+                setFavJoke(already);
+            }).catch(err => err);
+    }, [username, joke.id])
 
 
     function addCommentSubmit(e) {
