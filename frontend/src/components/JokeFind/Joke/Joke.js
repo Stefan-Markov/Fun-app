@@ -168,9 +168,10 @@ const Joke = () => {
                     comments.map((x, id) =>
 
                         <div key={x.id} className={'read-content'}>
-                            <div>
+                            <div className={'div-comments'}>
+                                <p><i className="fas fa-sort-amount-down"></i> {++id}.</p>
                                 <p><i className="fas fa-pen-alt"></i> {x.ownerOfComment} wrote: </p>
-                                <p><i className="fas fa-sort-amount-down"></i> {++id}. {x.content}</p>
+                                <p><i className="fas fa-align-right"></i><span className={'content-data'}> {x.content}</span></p>
                                 <p><i className="fas fa-calendar-alt"></i> Date
                                     added: {x.localDate[0] + "-" + x.localDate[1] + "-" + x.localDate[2]}</p>
                             </div>

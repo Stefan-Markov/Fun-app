@@ -152,6 +152,17 @@
     color: black;
 }
 
+.div-comments {
+    line-height: 1.7;
+}
+
 .all-jokes:hover {
     background-color: orange;
+}
+
+.content-data {
+    color: darkorange;
+    font-weight: bolder;
+    margin: 5px;
+
 }

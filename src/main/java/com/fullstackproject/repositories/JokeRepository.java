@@ -22,7 +22,7 @@ public interface JokeRepository extends JpaRepository<Joke, String> {
     List<Joke> findAllByKeyword(@Param("keyword") String keyword);
 
 
-    @Query("select j from Joke as j order by  j.likes.size desc ")
+    @Query("select j from Joke as j order by size(j.likes) desc ")
     List<Joke> findJokeWithMostLikes();
 
 
