@@ -54,7 +54,7 @@ const JokeById = () => {
         if (!owner) {
             navigate('/');
         }
-    },[names])
+    }, [names, navigate])
 
 
     function onDelete(e) {

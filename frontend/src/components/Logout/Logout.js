@@ -11,7 +11,7 @@ const Logout = ({onLogout}) => {
     useEffect(() => {
         logout();
         onLogout();
-    }, [])
+    }, [onLogout, logout])
 
 
     return <Navigate to="/" replace={true}/>;

@@ -43,7 +43,7 @@ const Joke = () => {
                 setAllReadyLiked(allReadyLike);
             })
             .catch(err => err);
-    }, [id.id]);
+    }, [id.id, username]);
 
     getFavouritesJokeByUsername(username)
         .then(res => res.json())
