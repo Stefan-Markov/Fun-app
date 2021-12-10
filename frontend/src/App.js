@@ -52,36 +52,36 @@ function App() {
     return (
         <ErrorCatch>
             <AuthProvider>
-                <div>
-                    <NavBar {...userInfo} />
-                    <Routes>
-                        <Route path={'/'} element={<Home/>}/>
+                    <div>
+                        <NavBar {...userInfo} />
+                        <Routes>
+                            <Route path={'/'} element={<Home/>}/>
 
-                        <Route element={<NoAuthGuard/>}>
-                            <Route path={'/login'} element={<Login onLogin={onLogin}/>}/>
-                            <Route path={'/register'} element={<Register onLogin={onLogin}/>}/>
-                        </Route>
+                            <Route element={<NoAuthGuard/>}>
+                                <Route path={'/login'} element={<Login onLogin={onLogin}/>}/>
+                                <Route path={'/register'} element={<Register onLogin={onLogin}/>}/>
+                            </Route>
 
-                        <Route element={<AuthGuard/>}>
-                            <Route path={'/logout'} element={<Logout onLogout={onLogout}/>}/>
-                            <Route path={'/joke-add'} element={<JokeAdd/>}/>
-                            <Route path={'/joke/:id'} element={<JokeById/>}/>
-                            <Route path={`/joke-manage`} element={<ManageJoke/>}/>
-                            <Route path={`/account`} element={<Account/>}/>
-                            <Route path={`/joke-find`} element={<JokeFind/>}/>
-                            <Route path={`/joke-read/:id`} element={<Joke/>}/>
-                            <Route path={`/find-all`} element={<AllJokes/>}/>
-                        </Route>
+                            <Route element={<AuthGuard/>}>
+                                <Route path={'/logout'} element={<Logout onLogout={onLogout}/>}/>
+                                <Route path={'/joke-add'} element={<JokeAdd/>}/>
+                                <Route path={'/joke/:id'} element={<JokeById/>}/>
+                                <Route path={`/joke-manage`} element={<ManageJoke/>}/>
+                                <Route path={`/account`} element={<Account/>}/>
+                                <Route path={`/joke-find`} element={<JokeFind/>}/>
+                                <Route path={`/joke-read/:id`} element={<Joke/>}/>
+                                <Route path={`/find-all`} element={<AllJokes/>}/>
+                            </Route>
 
-                        <Route element={<AdminGuard/>}>
-                            <Route path={`/admin`} element={<AdminPanel/>}/>
-                        </Route>
+                            <Route element={<AdminGuard/>}>
+                                <Route path={`/admin`} element={<AdminPanel/>}/>
+                            </Route>
 
-                        <Route path={`/*`} element={<NoData/>}/>
+                            <Route path={`/*`} element={<NoData/>}/>
 
-                    </Routes>
-                    <Footer/>
-                </div>
+                        </Routes>
+                        <Footer/>
+                    </div>
             </AuthProvider>
         </ErrorCatch>
     );

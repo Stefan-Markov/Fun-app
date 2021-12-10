@@ -3,9 +3,10 @@ import {Link} from "react-router-dom";
 import JokeCard from "./JokeCard/JokeCard";
 import {getJokeByUsername} from "../../../api/service/JokeService";
 import './manageJokeStyle.css'
+import ResetScroll from "../../../api/ResetScroll/ResetScroll";
 
 const ManageJoke = () => {
-
+    ResetScroll();
     let [jokes, setJokes] = useState([]);
 
     useEffect(() => {

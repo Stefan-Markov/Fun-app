@@ -6,6 +6,7 @@ import {deleteFavJokeByUsernameAndId, getFavouritesJokeByUsername} from "../../a
 import JokeFav from "./JokeFav";
 
 const Account = () => {
+
     let username = sessionStorage.getItem('authenticatedUser');
     let [user, setUser] = useState([]);
     let [date, setDate] = useState([]);

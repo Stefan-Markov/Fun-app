@@ -7,8 +7,10 @@ import {useEffect, useState} from "react";
 import {getLastTheeJokes} from "../../api/service/JokeService";
 import {Link} from "react-router-dom";
 import * as AuthenticationService from "../../api/service/AuthenticationService";
+import ResetScroll from "../../api/ResetScroll/ResetScroll";
 
 const Home = () => {
+    ResetScroll();
     let isLogin = AuthenticationService.isUserLoggedIn();
     let [lastTheeJokes, setLastTheeJokes] = useState([]);
 
@@ -19,7 +21,8 @@ const Home = () => {
 
                 setLastTheeJokes(data)
             }).catch(err => err);
-    }, [])
+    }, []);
+
     return (
         <div>
             <h1>Fun App</h1>

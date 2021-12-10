@@ -19,7 +19,6 @@ const Login = ({onLogin}) => {
         let username = form.get('username');
         let password = form.get('password');
 
-
         if (!username || !password) {
             seTFieldsCheck({allFields: true});
             return;

@@ -60,7 +60,7 @@ const Register = ({onLogin}) => {
                         onLogin();
                         navigate('/');
                     });
-            }).catch(err => err.message);
+            }).catch(err => err);
     }
 
     return (
@@ -98,8 +98,8 @@ const Register = ({onLogin}) => {
                 <div className={'errors'}>
                     {fieldsCheck.notMatch ? <div className="warning">Passwords don't match!</div> : ''}
                     {fieldsCheck.allFields ? <div className="warning">Fill all fields!</div> : ''}
-                    {dbError ? dbError
-                        .map(x => <div key={x} className="warning">{x.replaceAll(/[\\[\]]/g, '')}</div>) : ''}
+                    {dbError ? dbError.map(x =>
+                        <div key={x} className="warning">{x.replaceAll(/[\\[\]]/g, '')}</div>) : ''}
                 </div>
             </div>
         </div>

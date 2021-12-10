@@ -2,9 +2,10 @@ import {useEffect, useState} from "react";
 import {getAllJokes} from "../../api/service/JokeService";
 import './allJokesStyle.css'
 import JokeBaseCard from "./JokeBaseCard/JokeBaseCard";
+import ResetScroll from "../../api/ResetScroll/ResetScroll";
 
 const AllJokes = () => {
-
+    ResetScroll();
     let [jokes, setJokes] = useState([]);
 
     useEffect(() => {
@@ -12,7 +13,8 @@ const AllJokes = () => {
             .then(res => res.json())
             .then(data => {
                 setJokes(data);
-            });
+            })
+            .catch(err => err);
     }, []);
     return (
         <>

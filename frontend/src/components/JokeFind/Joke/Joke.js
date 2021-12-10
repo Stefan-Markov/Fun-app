@@ -9,8 +9,10 @@ import {
     onDeleteComment
 } from "../../../api/service/JokeService";
 import './jokeStyle.css'
+import ResetScroll from "../../../api/ResetScroll/ResetScroll";
 
 const Joke = () => {
+    ResetScroll();
     const id = useParams();
     let [joke, setJoke] = useState([]);
     let [dbError, setDbError] = useState([]);
@@ -21,7 +23,7 @@ const Joke = () => {
     let [allReadyLiked, setAllReadyLiked] = useState(false);
     let [added, setAdded] = useState([]);
     let [peopleWhoLiked, setPeopleWhoLiked] = useState([]);
-    let [favJoke, setFavJoke] = useState();
+    let [favJoke, setFavJoke] = useState([]);
 
     useEffect(() => {
         getJokeById(id.id)

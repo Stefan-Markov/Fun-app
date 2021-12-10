@@ -3,8 +3,10 @@ import {useEffect, useState} from "react";
 import {getJokeByMostLikes, getJokesFromDbByKeyword, getLastTheeJokes} from "../../api/service/JokeService";
 import {Link} from "react-router-dom";
 import LastTheeJokes from "../Home/LastTheeJokes/LastTheeJokes";
+import ResetScroll from "../../api/ResetScroll/ResetScroll";
 
 const JokeFind = () => {
+    ResetScroll();
     let [jokes, setJokes] = useState([]);
     let [lastTheeJokes, setLastTheeJokes] = useState([]);
     let [mostLiked, setMostLiked] = useState([]);
@@ -17,7 +19,7 @@ const JokeFind = () => {
                 .then(res => res.json())
                 .then(data => {
                     setJokes(data)
-                });
+                }).catch(err => err);
         } else {
             setJokes([])
         }
@@ -54,7 +56,8 @@ const JokeFind = () => {
                 </div>
                 : ''}
             <section className={'all-jokes'}>
-                <Link className={'link-all'} to={'/find-all'}> <i className="fas fa-list"></i> Here can view  all jokes</Link>
+                <Link className={'link-all'} to={'/find-all'}> <i className="fas fa-list"></i> Here can view all
+                    jokes</Link>
             </section>
             <div className={'search-keyword-wrap'}>
                 <div className={'div-search-keyword-wrap'}>

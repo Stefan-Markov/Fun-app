@@ -2,8 +2,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import {deleteJokeById, editJokeById, getJokeById} from "../../../api/service/JokeService";
 import {useEffect, useState} from "react";
 import './jokeByIdStyle.css';
+import ResetScroll from "../../../api/ResetScroll/ResetScroll";
 
 const JokeById = () => {
+    ResetScroll();
     const id = useParams();
     let [joke, setJoke] = useState([]);
     let [fieldsCheck, seTFieldsCheck] = useState({allFields: false});
