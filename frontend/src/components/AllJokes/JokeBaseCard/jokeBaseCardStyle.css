@@ -5,7 +5,6 @@
     margin: 10px;
     font-size: 1.2rem;
     line-height: 2;
-
 }
 
 .joke-card-link {
@@ -24,6 +23,13 @@
 }
 
 .joke-card-data {
+
     font-family: "American Typewriter", serif;
     color: lightblue;
+    word-break: break-word;
+}
+
+.comment {
+    color: orange;
+    margin: 10px 30px;
 }

@@ -57,6 +57,7 @@ Functionality
 - Add likes
 - Find joke by keyword
 - Browse all jokes
+- Browse all jokes and show dynamic comments on hover
 - Check who already like the joke
 - Admin panel
 - Consume DB information based on search by keywords and show dynamic content

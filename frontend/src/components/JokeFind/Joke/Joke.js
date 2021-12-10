@@ -108,8 +108,6 @@ const Joke = () => {
             .then(data => data.json())
             .catch(err => err);
         setFavJoke(true);
-
-
     }
 
     return (
