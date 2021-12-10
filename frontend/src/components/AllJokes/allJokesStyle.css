@@ -1,7 +1,6 @@
 .wrap-all {
     padding: 20px;
     width: 100%;
-    align-items: center;
     display: flex;
     align-items: flex-start;
     flex-flow: row wrap;

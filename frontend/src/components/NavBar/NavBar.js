@@ -18,6 +18,9 @@ const NavBar = () => {
             <NavLink to={'/account'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Account <i className="fas fa-user-circle"></i></li>
             </NavLink>
+            <NavLink to={'/find-all'} className={({isActive}) => "" + (isActive ? "active" : "")}>
+                <li className={'navbar'}> Find all jokes <i className="fas fa-puzzle-piece"></i></li>
+            </NavLink>
             <NavLink to={'/joke-find'} className={({isActive}) => "" + (isActive ? "active" : "")}>
                 <li className={'navbar'}> Find joke <i className="fas fa-puzzle-piece"></i></li>
             </NavLink>
