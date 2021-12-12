@@ -24,12 +24,17 @@ const Joke = () => {
     let [added, setAdded] = useState([]);
     let [peopleWhoLiked, setPeopleWhoLiked] = useState([]);
     let [favJoke, setFavJoke] = useState();
-
+    let [ownerOfJoke, setOwnerOfJoke] = useState();
+    
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
             .then(data => {
                 setJoke(data);
+
+                let isOwner = data.creator === username;
+                setOwnerOfJoke(isOwner);
+
                 let peopleWhoLiked = data.likes.map(x => x.ownerOfComment).join(', ');
                 setPeopleWhoLiked(peopleWhoLiked);
                 setComments(data.comments);
@@ -132,21 +137,24 @@ const Joke = () => {
                 <div className={'read-head heading'}><i className="fas fa-file-alt"></i> Content</div>
                 <p className={'read-content'}>{joke.content}</p>
                 <div>
-                    {favJoke ?
-                        <p className={'all-ready-liked'}>Already added to favourites joke </p> :
-                        <button className={'button-like'} onClick={() => addToFavourites(username, joke.id)}>
-                            <i className="fas fa-arrow-up"></i> Click to add to favourites this joke
-                            <i className="fas fa-arrow-up"></i>
-                        </button>
-                    }
+                    {!ownerOfJoke ?
+                        <div>
+                            {favJoke ?
+                                <p className={'all-ready-liked'}>Already added to favourites joke </p> :
+                                <button className={'button-like'} onClick={() => addToFavourites(username, joke.id)}>
+                                    <i className="fas fa-arrow-up"></i> Click to add to favourites this joke
+                                    <i className="fas fa-arrow-up"></i>
+                                </button>
+                            }
 
-                    {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
-                        :
-                        <button className={'button-like'} onClick={() => addLikeToJoke(username, joke.id)}>
-                            <i className="fas fa-arrow-up"></i> Click to like the joke
-                            <i className="fas fa-arrow-up"></i>
-                        </button>
-                    }
+                            {allReadyLiked ? <p className={'all-ready-liked'}>Thanks, you already like the joke. </p>
+                                :
+                                <button className={'button-like'} onClick={() => addLikeToJoke(username, joke.id)}>
+                                    <i className="fas fa-arrow-up"></i> Click to like the joke
+                                    <i className="fas fa-arrow-up"></i>
+                                </button>
+                            }
+                        </div> : ''}
                     <p className={'likes'}><i className="fas fa-thumbs-up"></i> Total likes: {likes}</p>
                 </div>
                 {peopleWhoLiked.length > 0 ? <p>People who liked: {peopleWhoLiked}</p> : ''}
@@ -171,7 +179,8 @@ const Joke = () => {
                             <div className={'div-comments'}>
                                 <p><i className="fas fa-sort-amount-down"></i> {++id}.</p>
                                 <p><i className="fas fa-pen-alt"></i> {x.ownerOfComment} wrote: </p>
-                                <p><i className="fas fa-align-right"></i><span className={'content-data'}> {x.content}</span></p>
+                                <p><i className="fas fa-align-right"></i><span
+                                    className={'content-data'}> {x.content}</span></p>
                                 <p><i className="fas fa-calendar-alt"></i> Date
                                     added: {x.localDate[0] + "-" + x.localDate[1] + "-" + x.localDate[2]}</p>
                             </div>
