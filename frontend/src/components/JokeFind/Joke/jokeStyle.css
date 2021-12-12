@@ -135,11 +135,11 @@
 
 .all-jokes {
     padding: 10px 20px;
-    background-color: #03e9f4;
-    width: 30vw;
-    border-bottom-right-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-left-radius: 30px;
+    background-color: orange;
+    /*width: 30vw;*/
+    /*border-bottom-right-radius: 30px;*/
+    /*border-top-right-radius: 30px;*/
+    /*border-bottom-left-radius: 30px;*/
     align-items: center;
     align-content: center;
     text-align: center;
@@ -157,12 +157,12 @@
 }
 
 .all-jokes:hover {
-    background-color: orange;
+    background-color: green;
+    color: white;
 }
 
 .content-data {
     color: darkorange;
     font-weight: bolder;
     margin: 5px;
-
 }

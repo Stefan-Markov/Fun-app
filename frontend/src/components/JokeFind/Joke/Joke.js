@@ -25,7 +25,7 @@ const Joke = () => {
     let [peopleWhoLiked, setPeopleWhoLiked] = useState([]);
     let [favJoke, setFavJoke] = useState();
     let [ownerOfJoke, setOwnerOfJoke] = useState();
-    
+
     useEffect(() => {
         getJokeById(id.id)
             .then(res => res.json())
