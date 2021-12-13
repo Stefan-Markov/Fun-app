@@ -24,7 +24,8 @@ public class RootSeed implements CommandLineRunner {
     private final String EMAIL = "leo@abv.bg";
     private final String PASSWORD = "33333";
 
-    public RootSeed(UserRepository userRepository, JokeRepository jokeRepository, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public RootSeed(UserRepository userRepository, JokeRepository jokeRepository,
+                    RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.jokeRepository = jokeRepository;
         this.roleService = roleService;
@@ -74,7 +75,7 @@ public class RootSeed implements CommandLineRunner {
                     .setKeyword("keyword very cool wow")
                     .setTitle("title very cool wow")
                     .setUser(user);
-            List<Joke> jokes = List.of(joke,jokeT,jokeS);
+            List<Joke> jokes = List.of(joke, jokeT, jokeS);
             this.jokeRepository.saveAll(jokes);
         }
     }

@@ -8,9 +8,10 @@ import com.fullstackproject.models.entities.User;
 import com.fullstackproject.models.dto.UserDto;
 import com.fullstackproject.repositories.RoleRepository;
 import com.fullstackproject.repositories.UserRepository;
+import com.fullstackproject.security.rolesAuth.IsAdmin;
+import com.fullstackproject.security.rolesAuth.IsProfileUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -94,7 +95,7 @@ public class UserController {
 
     @GetMapping("/account/:{username}")
     @ResponseBody
-    @PreAuthorize("#username == authentication.name && hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @IsProfileUser
     public UserDto getUserByUsername(@PathVariable String username) {
         Optional<User> byUsername = this.userRepository.findByUsername(username);
 
@@ -104,7 +105,7 @@ public class UserController {
 
     @GetMapping("/:{username}")
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @IsAdmin
     public List<String> getUsersByUsername(@PathVariable String username) {
 
         return this.userRepository.findAllBySimilarUsername(username);
@@ -112,7 +113,7 @@ public class UserController {
 
     @PutMapping("/role/:{username}")
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @IsAdmin
     public Object removeRoleOnUser(@PathVariable String username) {
         Success success = new Success();
         String principalUser = SecurityContextHolder
@@ -152,7 +153,7 @@ public class UserController {
 
     @PutMapping("/role-admin/:{username}")
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @IsAdmin
     public Object upgradeRoleOnUser(@PathVariable String username) {
         Success success = new Success();
         String principalUser = SecurityContextHolder
@@ -192,7 +193,7 @@ public class UserController {
 
     @DeleteMapping("/user/:{username}")
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @IsAdmin
     public Object deleteUser(@PathVariable String username) {
         Success success = new Success();
         String principalUser = SecurityContextHolder

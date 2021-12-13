@@ -35,7 +35,8 @@ public class JokeController {
     private final ModelMapper modelMapper;
     private final FavouritesJokeRepository favouritesJokeRepository;
 
-    public JokeController(UserRepository userRepository, JokeRepository jokeRepository, ModelMapper modelMapper, FavouritesJokeRepository favouritesJokeRepository) {
+    public JokeController(UserRepository userRepository, JokeRepository jokeRepository,
+                          ModelMapper modelMapper, FavouritesJokeRepository favouritesJokeRepository) {
         this.userRepository = userRepository;
         this.jokeRepository = jokeRepository;
         this.modelMapper = modelMapper;

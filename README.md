@@ -12,6 +12,7 @@ Back end
 - JPQL and native queries
 - Spring SpEl
 - Secure routes, controllers, password, internal state of app
+- Custom security annotations
 - 6 Repositories
 - JPA
 - @Async is used - create new thread for the operation, while the DB still indexing and returning the result
@@ -21,6 +22,7 @@ Back end
 - Validate data consuming
 - Data quality protect
 - Binding entities for validation
+- Using layers with multiple layouts
 - REST controllers architecture to communicate on frond end with React
 
 Front end
