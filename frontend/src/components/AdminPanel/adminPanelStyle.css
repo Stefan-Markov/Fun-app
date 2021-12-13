@@ -36,6 +36,10 @@
     margin: 5px;
 }
 
+.li-usernames:hover {
+    background-color: green;
+}
+
 .ul-usernames {
     display: flex;
     flex-direction: row;

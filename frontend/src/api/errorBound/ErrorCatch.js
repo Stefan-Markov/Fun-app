@@ -3,9 +3,7 @@ import NoData from "../../components/NoData/NoData";
 
 class ErrorCatch extends React.Component {
 
-
     state = {hasError: false};
-
 
     static getDerivedStateFromError(error) {
         console.log(error);

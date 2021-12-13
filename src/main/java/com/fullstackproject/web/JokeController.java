@@ -7,6 +7,7 @@ import com.fullstackproject.models.dto.JokeEditDTO;
 import com.fullstackproject.repositories.FavouritesJokeRepository;
 import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.repositories.UserRepository;
+import com.fullstackproject.security.rolesAuth.IsProfileUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -78,6 +79,7 @@ public class JokeController {
     @GetMapping("/joke-manage/:{username}")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
+    @IsProfileUser
     public ResponseEntity<List<Joke>> getJokes(@PathVariable String username) {
         List<Joke> jokes = this.jokeRepository.findAllByUsername(username);
         return ResponseEntity.status(200).body(jokes);

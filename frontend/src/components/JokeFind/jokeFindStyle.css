@@ -32,6 +32,10 @@
 .joke-read-link {
     color: black;
 }
+.joke-read-link:hover{
+
+    color: white;
+}
 
 
 .lastThree {
