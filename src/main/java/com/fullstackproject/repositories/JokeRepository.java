@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface JokeRepository extends JpaRepository<Joke, String> {
 
-    @Query("select j from  Joke  as j where  j.user.username = :username")
+    @Query("select j from  Joke  as j where  j.user.username = :username order by j.createdDate desc ")
     List<Joke> findAllByUsername(String username);
 
 

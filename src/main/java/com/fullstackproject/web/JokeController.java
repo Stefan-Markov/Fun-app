@@ -8,9 +8,11 @@ import com.fullstackproject.repositories.FavouritesJokeRepository;
 import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
+import com.nimbusds.jose.proc.SecurityContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -102,8 +104,12 @@ public class JokeController {
     @PutMapping("/joke/:{id}")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
-    public Object editJokeById(@PathVariable String id, @RequestBody @Valid JokeEditDTO jokeDTO, BindingResult bindingResult) {
+    public Object editJokeById(@PathVariable String id, @RequestBody @Valid JokeEditDTO jokeDTO,
+                               BindingResult bindingResult) {
         Optional<Joke> jokeById = this.jokeRepository.findById(id);
+
+        ResponseEntity<Joke> build = checkForAuthor(jokeById);
+        if (build != null) return build;
 
         if (bindingResult.hasErrors()) {
             ErrorRest errorRest = new ErrorRest();
@@ -131,6 +137,11 @@ public class JokeController {
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteJokeById(@PathVariable String id) {
+        Optional<Joke> jokeById = this.jokeRepository.findById(id);
+
+        ResponseEntity<Joke> build = checkForAuthor(jokeById);
+        if (build != null) return build;
+
 
         this.jokeRepository.deleteById(id);
 
@@ -169,7 +180,7 @@ public class JokeController {
     }
 
     @PostMapping("/favourite/:{id}/:{username}")
-    @PreAuthorize("isAuthenticated()")
+    @IsProfileUser
     public ResponseEntity<?> addFavJoke(@PathVariable String id, @PathVariable String username) {
 
         Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
@@ -187,7 +198,7 @@ public class JokeController {
     }
 
     @GetMapping("/favourites/:{username}")
-    @PreAuthorize("isAuthenticated()")
+    @IsProfileUser
     public ResponseEntity<?> getAllFavouritesByUsername(@PathVariable String username) {
 
         List<String> jokeIds = this.favouritesJokeRepository.findAllByUsername(username);
@@ -206,7 +217,7 @@ public class JokeController {
 
     @DeleteMapping("/favourite/:{id}/:{username}")
     @ResponseBody
-    @PreAuthorize("isAuthenticated()")
+    @IsProfileUser
     public ResponseEntity<?> deleteFavJoke(@PathVariable String id, @PathVariable String username) {
 
         Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
@@ -228,4 +239,15 @@ public class JokeController {
 
         return ResponseEntity.status(200).body(findAll);
     }
+
+    private ResponseEntity<Joke> checkForAuthor(Optional<Joke> joke) {
+        String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (joke.isPresent()) {
+            if (!principal.equals(joke.get().getCreator())) {
+                return ResponseEntity.status(400).build();
+            }
+        }
+        return null;
+    }
+    
 }
