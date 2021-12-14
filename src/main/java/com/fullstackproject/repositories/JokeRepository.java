@@ -1,5 +1,6 @@
 package com.fullstackproject.repositories;
 
+import com.fullstackproject.models.dto.JokeDTO;
 import com.fullstackproject.models.entities.Joke;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +25,5 @@ public interface JokeRepository extends JpaRepository<Joke, String> {
 
     @Query("select j from Joke as j order by size(j.likes) desc ")
     List<Joke> findJokeWithMostLikes();
-
 
 }

@@ -48,6 +48,8 @@
 
 .fav-no {
     margin: 20px;
+    width: 69vw;
+    text-align: center;
 }
 
 .div-buttons {
@@ -58,4 +60,28 @@
 
 .account-data {
     color: darkorange;
+}
+
+.wrap-commented-jokes {
+    background-color: lightskyblue;
+    padding: 20px;
+    border-radius: 30px;
+    margin: 10px;
+    width: 70%;
+}
+
+.commented-jokes-head {
+    text-align: center;
+    color: black;
+    border-bottom: 3px solid orange;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.commented-jokes {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

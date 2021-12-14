@@ -4,11 +4,11 @@ import com.fullstackproject.errorHandling.ErrorRest;
 import com.fullstackproject.models.entities.*;
 import com.fullstackproject.models.dto.JokeDTO;
 import com.fullstackproject.models.dto.JokeEditDTO;
+import com.fullstackproject.repositories.CommentRepository;
 import com.fullstackproject.repositories.FavouritesJokeRepository;
 import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
-import com.nimbusds.jose.proc.SecurityContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,13 +37,15 @@ public class JokeController {
     private final JokeRepository jokeRepository;
     private final ModelMapper modelMapper;
     private final FavouritesJokeRepository favouritesJokeRepository;
+    private final CommentRepository commentRepository;
 
     public JokeController(UserRepository userRepository, JokeRepository jokeRepository,
-                          ModelMapper modelMapper, FavouritesJokeRepository favouritesJokeRepository) {
+                          ModelMapper modelMapper, FavouritesJokeRepository favouritesJokeRepository, CommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.jokeRepository = jokeRepository;
         this.modelMapper = modelMapper;
         this.favouritesJokeRepository = favouritesJokeRepository;
+        this.commentRepository = commentRepository;
     }
 
 
@@ -240,6 +242,21 @@ public class JokeController {
         return ResponseEntity.status(200).body(findAll);
     }
 
+    @GetMapping("/joke-by-comments/:{username}")
+    @ResponseBody
+    @IsProfileUser
+    public List<Joke> getJokeByCommentsByUser(@PathVariable String username) {
+        List<Joke> jokes = new ArrayList<>();
+        List<String> jokesIds = this.commentRepository.findJokeByCommentsByUser(username);
+
+        for (String id : jokesIds) {
+            Joke byId = this.jokeRepository.findById(id).get();
+            jokes.add(byId);
+        }
+        return jokes;
+
+    }
+
     private ResponseEntity<Joke> checkForAuthor(Optional<Joke> joke) {
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();
         if (joke.isPresent()) {
@@ -249,5 +266,5 @@ public class JokeController {
         }
         return null;
     }
-    
+
 }

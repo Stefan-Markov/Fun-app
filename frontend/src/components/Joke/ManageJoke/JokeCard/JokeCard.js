@@ -2,7 +2,6 @@ import {Link} from "react-router-dom";
 import './jokeCardStyle.css'
 
 const JokeCard = ({joke}) => {
-    console.log(joke)
     let date = joke.createdDate[0] + "-" + joke.createdDate[1] + "-" + joke.createdDate[2];
     return (
         <section className={'main-section'}>

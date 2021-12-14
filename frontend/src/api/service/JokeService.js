@@ -157,3 +157,14 @@ export function getAllJokes() {
             }
         });
 }
+
+
+export function getCommentedJokeByUsername(username) {
+    return fetch(`${API_URL}/joke-by-comments/:${username}`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+}

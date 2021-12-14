@@ -2,7 +2,12 @@ import {getUserByUsername} from "../../api/service/UserService";
 import {useEffect, useState} from "react";
 import './accountStyle.css'
 import {Link, useNavigate} from "react-router-dom";
-import {deleteFavJokeByUsernameAndId, getFavouritesJokeByUsername} from "../../api/service/JokeService";
+import CommentedJoke from "./CommentedJoke/CommentedJoke";
+import {
+    deleteFavJokeByUsernameAndId,
+    getCommentedJokeByUsername,
+    getFavouritesJokeByUsername
+} from "../../api/service/JokeService";
 import JokeFav from "./JokeFav";
 
 const Account = () => {
@@ -13,6 +18,17 @@ const Account = () => {
     let [roles, setRoles] = useState([]);
     let [favouritesJoke, setFavouritesJoke] = useState([]);
     let [names, setNames] = useState({username: '', user: ''})
+
+    let [commentedJokes, setCommentedJokes] = useState([]);
+
+    useEffect(() => {
+        getCommentedJokeByUsername(username)
+            .then(res => res.json())
+            .then(data => {
+
+                setCommentedJokes(data)
+            }).catch(err => err);
+    }, [username])
     useEffect(() => {
         getUserByUsername(username)
             .then(res => res.json())
@@ -78,6 +94,16 @@ const Account = () => {
             <div className={'div-buttons'}>
                 <Link className={'link pad'} to={'/joke-add'}>Create joke here</Link>
                 <Link className={'link pad'} to={'/joke-find'}>Find jokes here</Link>
+            </div>
+            <div className={'wrap-commented-jokes'}>
+                <p className={'commented-jokes-head'}>Commented jokes by you </p>
+                <section className={'commented-jokes'}>
+                    {commentedJokes.length ?
+                        commentedJokes.map((x,id) => <CommentedJoke key={++id} joke={x}/>)
+                        :
+                        <p>No commented jokes so far</p>
+                    }
+                </section>
             </div>
             <div className={'wrap-cards fav'}>
                 <p className={'title-fav'}>Favourites jokes</p>

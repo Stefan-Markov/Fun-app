@@ -53,6 +53,7 @@ Functionality
 - Delete joke
 - Add joke to favourites
 - Remove joke from favourites
+- Collection of jokes based on if user is commented.
 - Add comment
 - Delete comment 
 - Read comments

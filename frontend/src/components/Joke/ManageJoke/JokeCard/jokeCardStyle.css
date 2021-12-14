@@ -6,7 +6,7 @@
     border-radius: 30px;
     display: flex;
     flex-direction: column;
-    min-width: 100ch;
+    width: 100ch;
     word-break: break-all;
 }
 
