@@ -92,8 +92,8 @@ const Account = () => {
                     className={'account-data'}>Roles:</span> {roles}</p>
             </div>
             <div className={'div-buttons'}>
-                <Link className={'link pad'} to={'/joke-add'}>Create joke here</Link>
-                <Link className={'link pad'} to={'/joke-find'}>Find jokes here</Link>
+                <Link className={'link pad'} to={'/joke-add'}>Create joke here <i className="fas fa-greater-than"></i></Link>
+                <Link className={'link pad'} to={'/joke-find'}>Find jokes here <i className="fab fa-searchengin"></i></Link>
             </div>
             <div className={'wrap-commented-jokes'}>
                 <p className={'commented-jokes-head'}>Commented jokes by you </p>

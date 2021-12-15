@@ -15,7 +15,7 @@ const JokeFav = ({joke, username, deleteFavJoke}) => {
                 <p><i className="fas fa-calendar-alt"></i> <span className={'property'}>Date added:</span> {date}</p>
 
                 <button onClick={() => deleteFavJoke({username, id: joke.id})} className={'button-joke-edit'}>Remove
-                    favourite joke
+                    favourite joke <i className="fas fa-eraser"></i>
                 </button>
 
             </div>

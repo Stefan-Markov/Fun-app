@@ -2,9 +2,6 @@ import axios from 'axios'
 import {API_URL, USER_NAME_SESSION_ATTRIBUTE_NAME, USER_NAME_SESSION_ROLES, USER_TOKEN} from '../constants/Constants'
 import jwt from 'jwt-decode'
 
-
-
-
 export function authJwtService(username, password) {
     return axios.post(`${API_URL}/authenticate`, {username, password})
 }
