@@ -34,6 +34,8 @@ Front end
 - Error boundary
 - Hooks approach
 - HOC
+- Modal
+- Hooks
 - Components segregation
 - Consume JWT for Auth
 - Consume JSON from Spring 
@@ -53,7 +55,8 @@ Functionality
 - Delete joke
 - Add joke to favourites
 - Remove joke from favourites
-- Collection of jokes based on if user is commented.
+- Collection of jokes based on if user is comment them.
+- Modal to show info about comments
 - Add comment
 - Delete comment 
 - Read comments

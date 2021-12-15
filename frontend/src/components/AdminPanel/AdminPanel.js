@@ -88,7 +88,7 @@ const AdminPanel = () => {
                     <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
                     <button type="submit"><i className="fas fa-eraser"></i> Delete</button>
                 </form>
-                <form onSubmit={onRemoveRole} className={'role-manage'}>
+                <form onSubmit={onRemoveRole}className={'role-manage'}>
                     <p className={'admin-titles'}>Remove Admin role of a user</p>
                     <label>Enter username (min 1 symbol)</label>
                     <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
