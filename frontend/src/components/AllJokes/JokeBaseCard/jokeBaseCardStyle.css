@@ -52,6 +52,8 @@
 }
 
 .title-modal-likes {
+    text-align: center;
+    font-weight: bolder;
     border-bottom: 3px solid orange;
 }
 .hover-data:hover{
