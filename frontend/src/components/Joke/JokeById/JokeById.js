@@ -58,7 +58,6 @@ const JokeById = () => {
     }, [names, navigate])
 
 
-
     return (
         <>
             <h1>Edit joke</h1>
@@ -75,7 +74,7 @@ const JokeById = () => {
                     <label className={'read-head'}>Content</label>
                     <textarea className={'edit-input content-edit'} name='content' defaultValue={joke.content}/>
                     <button className={'button-joke-edit'}>Save changes</button>
-                    <JokeDeleteModal id={joke.id} />
+                    <JokeDeleteModal id={joke.id}/>
                 </div>
             </form>
         </>

@@ -13,7 +13,6 @@ const AdminPanel = () => {
     let [users, setUsers] = useState([]);
     let [error, setError] = useState([]);
 
-
     function fetchUsers(e) {
         let username = e.currentTarget.value;
         if (username.length > 2 || username) {
@@ -26,7 +25,6 @@ const AdminPanel = () => {
             setUsers([])
         }
     }
-
 
     return (
         <>

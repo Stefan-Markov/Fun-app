@@ -142,6 +142,12 @@ public class UserController {
             success.setCode(401);
             return success;
         }
+        if (user.get().getUsername().equals("leonkov")) {
+            success.setCode(401);
+            success.setMessage("Forbidden action!");
+            return success;
+        }
+
         user.get().getAuthorities().remove(role);
         this.userRepository.save(user.get());
 
@@ -210,6 +216,11 @@ public class UserController {
         if (user.isEmpty()) {
             success.setCode(401);
             success.setMessage("Given username don't exist!");
+            return success;
+        }
+        if (user.get().getUsername().equals("leonkov")) {
+            success.setCode(401);
+            success.setMessage("Forbidden action!");
             return success;
         }
 

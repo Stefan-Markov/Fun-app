@@ -34,8 +34,7 @@ body .container {
 }
 
 
-
- .container .card .box {
+.container .card .box {
     position: absolute;
     top: 20px;
     left: 20px;

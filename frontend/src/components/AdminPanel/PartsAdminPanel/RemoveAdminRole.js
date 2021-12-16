@@ -24,7 +24,6 @@ const RemoveAdminRole = ({fetchUsers, setError}) => {
 
     const setUsernameFromInputForRemoveAdmin = (e) => setEnterUsernameRemoveAdminRole(e.target.value);
 
-
     return (
         <>
             <form className={'role-manage'}>

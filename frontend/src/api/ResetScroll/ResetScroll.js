@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 
-const ResetScroll = ()=>{
+const ResetScroll = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])

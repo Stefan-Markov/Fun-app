@@ -2,10 +2,9 @@ import Modal from "react-modal";
 import {useState} from "react";
 import {upgradeRoleOnUser} from "../../../api/service/UserService";
 
-const AddAdminRole = ({fetchUsers,setError}) => {
+const AddAdminRole = ({fetchUsers, setError}) => {
     const [enterUsernameAdminRole, setEnterUsernameAdminRole] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-
 
     function toggleModal(e) {
         e.preventDefault();
@@ -17,7 +16,6 @@ const AddAdminRole = ({fetchUsers,setError}) => {
         upgradeRoleOnUser(enterUsernameAdminRole)
             .then(res => res.json())
             .then(data => {
-
                 setError(data.message);
             })
             .catch(err => err);

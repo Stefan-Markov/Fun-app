@@ -8,7 +8,6 @@
     border: 3px solid black;
     display: flex;
     flex-direction: row;
-
 }
 
 .add-comment-wrap label {

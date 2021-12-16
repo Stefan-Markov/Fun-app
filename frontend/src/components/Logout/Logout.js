@@ -13,9 +13,7 @@ const Logout = ({onLogout}) => {
         onLogout();
     }, [onLogout, logout])
 
-
     return <Navigate to="/" replace={true}/>;
-
 }
 
 export default Logout;

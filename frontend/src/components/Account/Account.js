@@ -92,14 +92,16 @@ const Account = () => {
                     className={'account-data'}>Roles:</span> {roles}</p>
             </div>
             <div className={'div-buttons'}>
-                <Link className={'link pad'} to={'/joke-add'}>Create joke here <i className="fas fa-greater-than"></i></Link>
-                <Link className={'link pad'} to={'/joke-find'}>Find jokes here <i className="fab fa-searchengin"></i></Link>
+                <Link className={'link pad'} to={'/joke-add'}>Create joke here <i
+                    className="fas fa-greater-than"></i></Link>
+                <Link className={'link pad'} to={'/joke-find'}>Find jokes here <i
+                    className="fab fa-searchengin"></i></Link>
             </div>
             <div className={'wrap-commented-jokes'}>
                 <p className={'commented-jokes-head'}>Commented jokes by you </p>
                 <section className={'commented-jokes'}>
                     {commentedJokes.length ?
-                        commentedJokes.map((x,id) => <CommentedJoke key={++id} joke={x}/>)
+                        commentedJokes.map((x, id) => <CommentedJoke key={++id} joke={x}/>)
                         :
                         <p>No commented jokes so far</p>
                     }
