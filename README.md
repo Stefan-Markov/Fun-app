@@ -34,7 +34,8 @@ Front end
 - Error boundary
 - Hooks approach
 - HOC
-- Modal
+- Modals
+- Modal dialog
 - Hooks
 - Components segregation
 - Consume JWT for Auth
@@ -57,6 +58,7 @@ Functionality
 - Remove joke from favourites
 - Collection of jokes based on if user is comment them.
 - Modal to show info about comments
+- Modal for confirm action
 - Add comment
 - Delete comment 
 - Read comments

@@ -1,17 +1,18 @@
 import './adminPanelStyle.css'
 import {useState} from "react";
 import {
-    deleteUser,
-    getAllUsersBySimilarUsername,
-    removeRoleOnUser,
-    upgradeRoleOnUser
+    getAllUsersBySimilarUsername
 } from "../../api/service/UserService";
 import {isAdmin} from "../../api/hoc/isAdmin";
+import AddAdminRole from "./PartsAdminPanel/AddAdminRole";
+import RemoveAdminRole from "./PartsAdminPanel/RemoveAdminRole";
+import DeleteUser from "./PartsAdminPanel/DeleteUser";
 
 const AdminPanel = () => {
 
     let [users, setUsers] = useState([]);
     let [error, setError] = useState([]);
+
 
     function fetchUsers(e) {
         let username = e.currentTarget.value;
@@ -27,73 +28,14 @@ const AdminPanel = () => {
     }
 
 
-    function onDeleteUser(e) {
-        e.preventDefault();
-        let formData = new FormData(e.target);
-        let username = formData.get('username');
-
-        deleteUser(username)
-            .then(res => res.json())
-            .then(data => {
-                e.target.username.value = '';
-                setError(data.message);
-                setUsers([])
-            })
-            .catch(err => err);
-    }
-
-
-    function onRemoveRole(e) {
-        e.preventDefault();
-        let formData = new FormData(e.target);
-        let username = formData.get('username');
-
-        removeRoleOnUser(username)
-            .then(res => res.json())
-            .then(data => {
-                setError(data.message);
-            })
-            .catch(err => err);
-    }
-
-    function onUpgradeRole(e) {
-        e.preventDefault();
-        let formData = new FormData(e.target);
-        let username = formData.get('username');
-
-        upgradeRoleOnUser(username)
-            .then(res => res.json())
-            .then(data => {
-                // e.target.username.value = '';
-                setError(data.message);
-            })
-            .catch(err => err);
-    }
-
-
     return (
         <>
             <h1>Manage very important things</h1>
             {error ? <p className={'error-admin'}>{error}</p> : ''}
             <div className={'wrap-role-manage'}>
-                <form onSubmit={onUpgradeRole} className={'role-manage'}>
-                    <p className={'admin-titles'}>Add Admin role to a user</p>
-                    <label>Enter username (min 1 symbol)</label>
-                    <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
-                    <button type="submit"><i className="fas fa-plus"></i> Add</button>
-                </form>
-                <form onSubmit={onDeleteUser} className={'role-manage'}>
-                    <p className={'admin-titles'}>Delete user immediately</p>
-                    <label>Enter username (min 1 symbol)</label>
-                    <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
-                    <button type="submit"><i className="fas fa-eraser"></i> Delete</button>
-                </form>
-                <form onSubmit={onRemoveRole}className={'role-manage'}>
-                    <p className={'admin-titles'}>Remove Admin role of a user</p>
-                    <label>Enter username (min 1 symbol)</label>
-                    <input name='username' onKeyUp={fetchUsers}/> <i className="fas fa-search"></i>
-                    <button type="submit"><i className="fas fa-minus"></i> Remove</button>
-                </form>
+                <AddAdminRole fetchUsers={fetchUsers} setError={setError}/>
+                <DeleteUser fetchUsers={fetchUsers} setError={setError}/>
+                <RemoveAdminRole fetchUsers={fetchUsers} setError={setError}/>
             </div>
             {
                 users.length >= 1 ?

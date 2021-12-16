@@ -27,7 +27,7 @@ const JokeBaseCard = ({joke, id}) => {
             <Modal className={'modal-style-likes'}
                    isOpen={isOpen}
                    onRequestClose={toggleModal}
-                   contentLabel="Confirm deleting user"
+                   contentLabel="Likes on joke"
                    ariaHideApp={false}>
                 <p className={'title-modal-likes'}>Users who liked this joke:</p>
 
