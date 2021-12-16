@@ -59,6 +59,7 @@ Functionality
 - Collection of jokes based on if user is comment them.
 - Modal to show info about comments
 - Modal for confirm action
+- Modal dialog for delte joke
 - Add comment
 - Delete comment 
 - Read comments

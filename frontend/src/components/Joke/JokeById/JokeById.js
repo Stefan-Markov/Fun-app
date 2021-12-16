@@ -1,8 +1,9 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {deleteJokeById, editJokeById, getJokeById} from "../../../api/service/JokeService";
+import {editJokeById, getJokeById} from "../../../api/service/JokeService";
 import {useEffect, useState} from "react";
 import './jokeByIdStyle.css';
 import ResetScroll from "../../../api/ResetScroll/ResetScroll";
+import JokeDeleteModal from "./JokeDeleteModal/JokeDeleteModal";
 
 const JokeById = () => {
     ResetScroll();
@@ -57,14 +58,6 @@ const JokeById = () => {
     }, [names, navigate])
 
 
-    function onDelete(e) {
-        e.preventDefault();
-
-        deleteJokeById({id: id.id})
-            .then(res => res.json())
-            .catch(err => err);
-        navigate('/');
-    }
 
     return (
         <>
@@ -82,7 +75,7 @@ const JokeById = () => {
                     <label className={'read-head'}>Content</label>
                     <textarea className={'edit-input content-edit'} name='content' defaultValue={joke.content}/>
                     <button className={'button-joke-edit'}>Save changes</button>
-                    <button onClick={onDelete} className={'button-joke-edit'}>Delete joke immediately</button>
+                    <JokeDeleteModal id={joke.id} />
                 </div>
             </form>
         </>
