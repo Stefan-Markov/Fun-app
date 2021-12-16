@@ -1,6 +1,9 @@
 # Fun-app
 Full stack project with React, Spring, MySQL.
 
+Oh, darling,
+async...i'm on await
+
 Back end
 
 - MySQL DB
@@ -37,6 +40,7 @@ Front end
 - Modals
 - Modal dialog
 - Hooks
+- Fetch Api
 - Components segregation
 - Consume JWT for Auth
 - Consume JSON from Spring 
