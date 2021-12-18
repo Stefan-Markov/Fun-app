@@ -88,5 +88,5 @@ Functionality
 
 To run the app, please provide yours username and password to MySQL db in the app.props.
 Note the fact, that first run of the app will make root user
-with - username: leonkov   password: 33333
+with - username: leonkov   password: 12345
 

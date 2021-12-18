@@ -22,7 +22,7 @@ public class RootSeed implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final String USERNAME = "leonkov";
     private final String EMAIL = "leo@abv.bg";
-    private final String PASSWORD = "33333";
+    private final String PASSWORD = "12345";
 
     public RootSeed(UserRepository userRepository, JokeRepository jokeRepository,
                     RoleService roleService, PasswordEncoder passwordEncoder) {
