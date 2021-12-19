@@ -55,8 +55,7 @@ public class UserController {
             errorRest.setCode(401);
             return errorRest;
         }
-
-
+        
         if (bindingResult.hasErrors()) {
             ErrorRest errorRest = new ErrorRest();
             List<FieldError> errors = bindingResult.getFieldErrors();
