@@ -1,4 +1,4 @@
 package com.fullstackproject.service;
 
-public interface FavouritesService {
+public interface FavouritesJokeService {
 }

@@ -7,9 +7,9 @@ import com.fullstackproject.models.dto.JokeEditDTO;
 import com.fullstackproject.repositories.CommentRepository;
 import com.fullstackproject.repositories.FavouritesJokeRepository;
 import com.fullstackproject.repositories.JokeRepository;
-import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
-import org.modelmapper.ModelMapper;
+import com.fullstackproject.service.FavouritesJokeService;
+import com.fullstackproject.service.JokeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +19,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.fullstackproject.constants.Constants.API_HOST;
 
@@ -33,17 +30,21 @@ import static com.fullstackproject.constants.Constants.API_HOST;
 @CrossOrigin(API_HOST)
 public class JokeController {
 
-    private final UserRepository userRepository;
+    private final JokeService jokeService;
+    private final FavouritesJokeService favouritesJokeService;
     private final JokeRepository jokeRepository;
-    private final ModelMapper modelMapper;
+
     private final FavouritesJokeRepository favouritesJokeRepository;
     private final CommentRepository commentRepository;
 
-    public JokeController(UserRepository userRepository, JokeRepository jokeRepository,
-                          ModelMapper modelMapper, FavouritesJokeRepository favouritesJokeRepository, CommentRepository commentRepository) {
-        this.userRepository = userRepository;
+    public JokeController(JokeRepository jokeRepository, JokeService jokeService,
+                          FavouritesJokeService favouritesJokeService, FavouritesJokeRepository favouritesJokeRepository,
+                          CommentRepository commentRepository) {
+
         this.jokeRepository = jokeRepository;
-        this.modelMapper = modelMapper;
+        this.jokeService = jokeService;
+        this.favouritesJokeService = favouritesJokeService;
+
         this.favouritesJokeRepository = favouritesJokeRepository;
         this.commentRepository = commentRepository;
     }
@@ -54,8 +55,15 @@ public class JokeController {
     @PreAuthorize("isAuthenticated()")
     public Object createJoke(@RequestBody @Valid JokeDTO jokeData, BindingResult bindingResult) {
 
-        Optional<User> user = this.userRepository.findByUsername(jokeData.getUsername());
+        ErrorRest errorRest = getErrors(bindingResult);
+        if (errorRest != null) return errorRest;
 
+        Joke joke = this.jokeService.createJoke(jokeData);
+
+        return ResponseEntity.status(200).body(joke);
+    }
+
+    private ErrorRest getErrors(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             ErrorRest errorRest = new ErrorRest();
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -69,15 +77,7 @@ public class JokeController {
             errorRest.setCause(message.toString());
             return errorRest;
         }
-
-        Joke joke = this.modelMapper.map(jokeData, Joke.class);
-
-        joke.setUser(user.get());
-        joke.setCreator(user.get().getUsername());
-        joke.setCreatedDate(LocalDateTime.now());
-
-        this.jokeRepository.save(joke);
-        return ResponseEntity.status(200).body(joke);
+        return null;
     }
 
     @GetMapping("/joke-manage/:{username}")
@@ -85,7 +85,7 @@ public class JokeController {
     @PreAuthorize("isAuthenticated()")
     @IsProfileUser
     public ResponseEntity<List<Joke>> getJokes(@PathVariable String username) {
-        List<Joke> jokes = this.jokeRepository.findAllByUsername(username);
+        List<Joke> jokes = this.jokeService.findAllJokesByUsername(username);
         return ResponseEntity.status(200).body(jokes);
     }
 
@@ -94,13 +94,8 @@ public class JokeController {
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Joke> getJokeById(@PathVariable String id) {
-        Optional<Joke> joke = this.jokeRepository.findById(id);
-        List<Comment> collect = joke.get().getComments()
-                .stream().sorted(Comparator.comparing(Comment::getLocalDate))
-                .collect(Collectors.toList());
-        joke.get().setComments(collect);
-
-        return ResponseEntity.status(200).body(joke.get());
+        Joke jokeById = this.jokeService.getJokeById(id);
+        return ResponseEntity.status(200).body(jokeById);
     }
 
     @PutMapping("/joke/:{id}")
@@ -108,44 +103,28 @@ public class JokeController {
     @PreAuthorize("isAuthenticated()")
     public Object editJokeById(@PathVariable String id, @RequestBody @Valid JokeEditDTO jokeDTO,
                                BindingResult bindingResult) {
-        Optional<Joke> jokeById = this.jokeRepository.findById(id);
+        Optional<Joke> jokeById = this.jokeService.getJokeByIdOptional(id);
 
         ResponseEntity<Joke> build = checkForAuthor(jokeById);
         if (build != null) return build;
 
-        if (bindingResult.hasErrors()) {
-            ErrorRest errorRest = new ErrorRest();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            List<String> message = new ArrayList<>();
-            errorRest.setCode(401);
-            for (FieldError e : errors) {
-//                message.add(e.getField() + " : " + e.getDefaultMessage());
-                message.add(e.getDefaultMessage());
-            }
-            errorRest.setMessage("Create of joke Failed");
-            errorRest.setCause(message.toString());
-            return errorRest;
-        }
+        Object errorRest = getErrors(bindingResult);
+        if (errorRest != null) return errorRest;
 
-        jokeById.get().setContent(jokeDTO.getContent());
-        jokeById.get().setKeyword(jokeDTO.getKeyword());
-        jokeById.get().setTitle(jokeDTO.getTitle());
-
-        this.jokeRepository.save(jokeById.get());
-        return ResponseEntity.status(200).body(jokeById.get());
+        Joke joke = this.jokeService.editJoke(jokeById.get(), jokeDTO);
+        return ResponseEntity.status(200).body(joke);
     }
 
     @DeleteMapping("/joke/:{id}")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteJokeById(@PathVariable String id) {
-        Optional<Joke> jokeById = this.jokeRepository.findById(id);
+        Optional<Joke> jokeById = this.jokeService.getJokeByIdOptional(id);
 
         ResponseEntity<Joke> build = checkForAuthor(jokeById);
         if (build != null) return build;
 
-
-        this.jokeRepository.deleteById(id);
+        this.jokeService.deleteJokeById(id);
 
         return ResponseEntity.status(200).build();
     }
@@ -153,10 +132,7 @@ public class JokeController {
     @GetMapping("/lastTheeJokes")
     @ResponseBody
     public ResponseEntity<List<Joke>> getLastThree() {
-        List<Joke> lastThree = this.jokeRepository.findLastThree()
-                .stream()
-                .sorted(Comparator.comparing(Joke::getCreatedDate).reversed())
-                .limit(3).collect(Collectors.toList());
+       List<Joke> lastThree = this.jokeService.getLastThreeJokes();
         return ResponseEntity.status(200).body(lastThree);
     }
 
@@ -165,10 +141,7 @@ public class JokeController {
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Joke>> getJokesByKeyword(@PathVariable String keyword) {
-        List<Joke> lastThree = this.jokeRepository.findAllByKeyword(keyword)
-                .stream()
-                .sorted(Comparator.comparing(Joke::getCreatedDate))
-                .collect(Collectors.toList());
+        List<Joke> lastThree = this.jokeService.getJokesByKeyword(keyword);
         return ResponseEntity.status(200).body(lastThree);
     }
 
@@ -176,8 +149,7 @@ public class JokeController {
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Joke>> getJokesByMostLikes() {
-        List<Joke> joke = this.jokeRepository.findJokeWithMostLikes()
-                .stream().limit(1).collect(Collectors.toList());
+        List<Joke> joke = this.jokeService.getJokeByMostLikes();
         return ResponseEntity.status(200).body(joke);
     }
 
@@ -261,7 +233,7 @@ public class JokeController {
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();
         if (joke.isPresent()) {
             if (!principal.equals(joke.get().getCreator())) {
-                return ResponseEntity.status(400).build();
+                return ResponseEntity.status(401).build();
             }
         }
         return null;
