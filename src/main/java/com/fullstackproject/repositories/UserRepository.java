@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByUsername(String username);
 
+
     @Query(value =
             "select u.username from users as u where u.username like %:username%",
             nativeQuery = true)
