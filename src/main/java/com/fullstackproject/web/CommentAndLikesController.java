@@ -10,6 +10,7 @@ import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.repositories.LikeRepository;
 import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
+import com.fullstackproject.service.CommentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +21,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +33,17 @@ public class CommentAndLikesController {
 
     private final CommentRepository commentRepository;
     private final JokeRepository jokeRepository;
-    private final ModelMapper modelMapper;
-    private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+    private final CommentService commentService;
+
 
     public CommentAndLikesController(CommentRepository commentRepository,
-                                     JokeRepository jokeRepository, ModelMapper modelMapper, UserRepository userRepository, LikeRepository likeRepository) {
+                                     JokeRepository jokeRepository, LikeRepository likeRepository,
+                                     CommentService commentService) {
         this.commentRepository = commentRepository;
         this.jokeRepository = jokeRepository;
-        this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
         this.likeRepository = likeRepository;
+        this.commentService = commentService;
     }
 
     @PostMapping("/add/comment/:{jokeId}")
@@ -51,21 +51,15 @@ public class CommentAndLikesController {
     @PreAuthorize("isAuthenticated()")
     public Object addCommentToJoke(@PathVariable String jokeId,
                                    @RequestBody @Valid CommentDto commentDto, BindingResult bindingResult) {
-        ErrorRest errorRest = new ErrorRest();
-        ErrorRest checkForAuth = checkForAuthor(commentDto, errorRest);
+        ErrorRest errors = new ErrorRest();
+        ErrorRest checkForAuth = checkForAuthor(commentDto, errors);
         if (checkForAuth != null) return checkForAuth;
 
-        ErrorRest errorRest1 = getErrors(bindingResult, errorRest);
-        if (errorRest1 != null) return errorRest1;
+        ErrorRest errorRest = getErrors(bindingResult, errors);
+        if (errorRest != null) return errorRest;
 
-        Joke joke = this.jokeRepository.findById(jokeId).get();
-        Comment comment = this.modelMapper.map(commentDto, Comment.class);
 
-        comment
-                .setJoke(joke)
-                .setLocalDate(LocalDateTime.now());
-
-        commentRepository.save(comment);
+        Comment comment = this.commentService.addCommentToJoke(jokeId, commentDto);
         return ResponseEntity.status(200).body(comment);
 
     }
@@ -119,7 +113,7 @@ public class CommentAndLikesController {
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 
         if (!principal.equals(commentDto.getOwnerOfComment())) {
-            errorRest.setCode(400);
+            errorRest.setCode(402);
             errorRest.setMessage("Adding comment Failed");
             errorRest.setCause("Failed adding!");
             return errorRest;

@@ -4,23 +4,20 @@ import com.fullstackproject.errorHandling.ErrorRest;
 import com.fullstackproject.errorHandling.MyResourceNotFoundException;
 import com.fullstackproject.errorHandling.Success;
 import com.fullstackproject.models.dto.UserDto;
-import com.fullstackproject.models.entities.Role;
 import com.fullstackproject.models.entities.User;
-import com.fullstackproject.repositories.RoleRepository;
-import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.security.rolesAuth.IsAdmin;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
 import com.fullstackproject.service.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static com.fullstackproject.constants.Constants.API_HOST;
 

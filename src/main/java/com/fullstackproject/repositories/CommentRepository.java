@@ -12,5 +12,5 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, String> {
 
     @Query("select c.joke.id from  Comment as c where  c.ownerOfComment = :username")
-    List<String> findJokeByCommentsByUser(@Param("username") String username);
+    List<String> findJokeIdsByCommentsByUsername(@Param("username") String username);
 }

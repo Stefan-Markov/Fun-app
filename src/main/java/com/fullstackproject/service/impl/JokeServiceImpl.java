@@ -9,6 +9,7 @@ import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.service.JokeService;
 import com.fullstackproject.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -101,6 +102,11 @@ public class JokeServiceImpl implements JokeService {
     public List<Joke> getJokeByMostLikes() {
         return this.jokeRepository.findJokeWithMostLikes()
                 .stream().limit(1).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Joke> findAllJokes() {
+        return this.jokeRepository.findAll() ;
     }
 
 

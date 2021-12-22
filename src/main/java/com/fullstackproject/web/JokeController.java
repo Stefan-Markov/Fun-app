@@ -4,10 +4,8 @@ import com.fullstackproject.errorHandling.ErrorRest;
 import com.fullstackproject.models.entities.*;
 import com.fullstackproject.models.dto.JokeDTO;
 import com.fullstackproject.models.dto.JokeEditDTO;
-import com.fullstackproject.repositories.CommentRepository;
-import com.fullstackproject.repositories.FavouritesJokeRepository;
-import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
+import com.fullstackproject.service.CommentService;
 import com.fullstackproject.service.FavouritesJokeService;
 import com.fullstackproject.service.JokeService;
 import org.springframework.http.ResponseEntity;
@@ -32,21 +30,13 @@ public class JokeController {
 
     private final JokeService jokeService;
     private final FavouritesJokeService favouritesJokeService;
-    private final JokeRepository jokeRepository;
+    private final CommentService commentService;
 
-    private final FavouritesJokeRepository favouritesJokeRepository;
-    private final CommentRepository commentRepository;
-
-    public JokeController(JokeRepository jokeRepository, JokeService jokeService,
-                          FavouritesJokeService favouritesJokeService, FavouritesJokeRepository favouritesJokeRepository,
-                          CommentRepository commentRepository) {
-
-        this.jokeRepository = jokeRepository;
+    public JokeController(JokeService jokeService,
+                          FavouritesJokeService favouritesJokeService, CommentService commentService) {
         this.jokeService = jokeService;
         this.favouritesJokeService = favouritesJokeService;
-
-        this.favouritesJokeRepository = favouritesJokeRepository;
-        this.commentRepository = commentRepository;
+        this.commentService = commentService;
     }
 
 
@@ -180,7 +170,7 @@ public class JokeController {
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> findAllJokes() {
-        List<Joke> findAll = this.jokeRepository.findAll();
+        List<Joke> findAll = this.jokeService.findAllJokes();
 
         return ResponseEntity.status(200).body(findAll);
     }
@@ -188,16 +178,8 @@ public class JokeController {
     @GetMapping("/joke-by-comments/:{username}")
     @ResponseBody
     @IsProfileUser
-    public List<Joke> getJokeByCommentsByUser(@PathVariable String username) {
-        List<Joke> jokes = new ArrayList<>();
-        List<String> jokesIds = this.commentRepository.findJokeByCommentsByUser(username);
-
-        for (String id : jokesIds) {
-            Joke byId = this.jokeRepository.findById(id).get();
-            jokes.add(byId);
-        }
-        return jokes;
-
+    public List<Joke> getJokeCommentsByUsername(@PathVariable String username) {
+        return this.commentService.getCommentedJokesByUsername(username);
     }
 
     private ResponseEntity<Joke> checkForAuthor(Optional<Joke> joke) {
