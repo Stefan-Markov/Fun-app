@@ -52,9 +52,25 @@ public class CommentAndLikesController {
     public Object addCommentToJoke(@PathVariable String jokeId,
                                    @RequestBody @Valid CommentDto commentDto, BindingResult bindingResult) {
         ErrorRest errorRest = new ErrorRest();
-        ErrorRest checkForAuth = getError(commentDto, errorRest);
+        ErrorRest checkForAuth = checkForAuthor(commentDto, errorRest);
         if (checkForAuth != null) return checkForAuth;
 
+        ErrorRest errorRest1 = getErrors(bindingResult, errorRest);
+        if (errorRest1 != null) return errorRest1;
+
+        Joke joke = this.jokeRepository.findById(jokeId).get();
+        Comment comment = this.modelMapper.map(commentDto, Comment.class);
+
+        comment
+                .setJoke(joke)
+                .setLocalDate(LocalDateTime.now());
+
+        commentRepository.save(comment);
+        return ResponseEntity.status(200).body(comment);
+
+    }
+
+    private ErrorRest getErrors(BindingResult bindingResult, ErrorRest errorRest) {
         if (bindingResult.hasErrors()) {
 
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -67,17 +83,7 @@ public class CommentAndLikesController {
             errorRest.setCause(message.toString());
             return errorRest;
         }
-
-        Joke joke = this.jokeRepository.findById(jokeId).get();
-        Comment comment = this.modelMapper.map(commentDto, Comment.class);
-
-        comment
-                .setJoke(joke)
-                .setLocalDate(LocalDateTime.now());
-
-        commentRepository.save(comment);
-        return ResponseEntity.status(200).body(comment);
-
+        return null;
     }
 
     @DeleteMapping("/add/comment/:{id}")
@@ -109,7 +115,7 @@ public class CommentAndLikesController {
         return ResponseEntity.status(200).build();
     }
 
-    private ErrorRest getError(CommentDto commentDto, ErrorRest errorRest) {
+    private ErrorRest checkForAuthor(CommentDto commentDto, ErrorRest errorRest) {
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 
         if (!principal.equals(commentDto.getOwnerOfComment())) {

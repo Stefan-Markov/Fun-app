@@ -132,7 +132,7 @@ public class JokeController {
     @GetMapping("/lastTheeJokes")
     @ResponseBody
     public ResponseEntity<List<Joke>> getLastThree() {
-       List<Joke> lastThree = this.jokeService.getLastThreeJokes();
+        List<Joke> lastThree = this.jokeService.getLastThreeJokes();
         return ResponseEntity.status(200).body(lastThree);
     }
 
@@ -157,36 +157,14 @@ public class JokeController {
     @IsProfileUser
     public ResponseEntity<?> addFavJoke(@PathVariable String id, @PathVariable String username) {
 
-        Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
-
-        if (already != null) {
-            return ResponseEntity.status(200).build();
-        }
-
-        Favourites favourites = new Favourites();
-        favourites.setUsername(username);
-        favourites.setJokeId(id);
-
-        this.favouritesJokeRepository.save(favourites);
-        return ResponseEntity.status(200).build();
+        return this.favouritesJokeService.addFavouriteJoke(id, username);
     }
 
     @GetMapping("/favourites/:{username}")
     @IsProfileUser
     public ResponseEntity<?> getAllFavouritesByUsername(@PathVariable String username) {
 
-        List<String> jokeIds = this.favouritesJokeRepository.findAllByUsername(username);
-        List<Joke> jokes = new ArrayList<>();
-
-        if (jokeIds.size() == 0) {
-            return ResponseEntity.status(200).build();
-        }
-
-        for (String id : jokeIds) {
-            Joke joke = this.jokeRepository.findById(id).get();
-            jokes.add(joke);
-        }
-        return ResponseEntity.status(200).body(jokes);
+        return this.favouritesJokeService.getFavouritesJokesByUsername(username);
     }
 
     @DeleteMapping("/favourite/:{id}/:{username}")
@@ -194,14 +172,7 @@ public class JokeController {
     @IsProfileUser
     public ResponseEntity<?> deleteFavJoke(@PathVariable String id, @PathVariable String username) {
 
-        Favourites already = this.favouritesJokeRepository.findByUsernameAndId(username, id);
-
-        if (already != null) {
-            this.favouritesJokeRepository.delete(already);
-            return ResponseEntity.status(200).body(already);
-        }
-
-        return ResponseEntity.status(200).body(0);
+        return this.favouritesJokeService.deleteFavouritesJokeByUsernameAndJokeId(username, id);
     }
 
 

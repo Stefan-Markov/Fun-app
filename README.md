@@ -72,6 +72,7 @@ Functionality
 - Browse all jokes
 - Browse all jokes and show dynamic comments on hover
 - Check who already like the joke
+- Check which jokes you have in favourites or you commented
 - Admin panel
 - Consume DB information based on search by keywords and show dynamic content
 - Validate user data inputs and show proper message, if needed
