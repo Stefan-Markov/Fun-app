@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
+@CustomAnnotation
 public class JokeDTO {
     private String title;
     private String content;

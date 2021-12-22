@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import static com.fullstackproject.constants.Constants.API_HOST;
 
@@ -86,7 +87,7 @@ public class UserController {
     @GetMapping("/:{username}")
     @ResponseBody
     @IsAdmin
-    public List<String> getUsersByUsername(@PathVariable String username) {
+    public List<String> getUsersByUsername(@PathVariable String username) throws ExecutionException, InterruptedException {
         return this.userService.findAllBySimilarUsername(username);
     }
 

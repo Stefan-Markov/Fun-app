@@ -6,6 +6,7 @@ import com.fullstackproject.models.entities.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 public interface UserService {
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     UserDto getUserByUsername(String username);
 
-    List<String> findAllBySimilarUsername(String username);
+    List<String> findAllBySimilarUsername(String username) throws ExecutionException, InterruptedException;
 
     Success removeRoleOnUser(String username);
 

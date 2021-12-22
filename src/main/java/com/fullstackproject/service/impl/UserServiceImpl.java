@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import static com.fullstackproject.constants.Constants.ROLE_USER;
 
@@ -29,7 +31,8 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper,
+                           PasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -72,6 +75,37 @@ public class UserServiceImpl implements UserService {
         return success;
     }
 
+    public static Success getSuccessDeleteUser(String username, UserRepository userRepository) {
+        Success success = new Success();
+        String principalUser = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+        if (principalUser.equals(username)) {
+            success.setCode(401);
+            success.setMessage("You can't delete yourself!");
+            return success;
+        }
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
+            success.setCode(401);
+            success.setMessage("Given username don't exist!");
+            return success;
+        }
+        if (user.get().getUsername().equals("leonkov")) {
+            success.setCode(401);
+            success.setMessage("Forbidden action!");
+            return success;
+        }
+
+        userRepository.delete(user.get());
+
+        success.setCode(200);
+        success.setMessage("User with " + username + " deleted!");
+        return success;
+    }
+
     @Override
     public Optional<User> findByUsername(String username) {
         return this.userRepository.findByUsername(username);
@@ -100,7 +134,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<String> findAllBySimilarUsername(String username) {
-        return this.userRepository.findAllBySimilarUsername(username);
+        try {
+            return this.userRepository.findAllBySimilarUsername(username).get();
+        } catch (ExecutionException | InterruptedException err) {
+            return null;
+        }
     }
 
     @Override
@@ -154,36 +192,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public Success deleteUser(String username) {
         return getSuccessDeleteUser(username, this.userRepository);
-    }
-
-    public static Success getSuccessDeleteUser(String username, UserRepository userRepository) {
-        Success success = new Success();
-        String principalUser = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName();
-
-        if (principalUser.equals(username)) {
-            success.setCode(401);
-            success.setMessage("You can't delete yourself!");
-            return success;
-        }
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isEmpty()) {
-            success.setCode(401);
-            success.setMessage("Given username don't exist!");
-            return success;
-        }
-        if (user.get().getUsername().equals("leonkov")) {
-            success.setCode(401);
-            success.setMessage("Forbidden action!");
-            return success;
-        }
-
-        userRepository.delete(user.get());
-
-        success.setCode(200);
-        success.setMessage("User with " + username + " deleted!");
-        return success;
     }
 }
