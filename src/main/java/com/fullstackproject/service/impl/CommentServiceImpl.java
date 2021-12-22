@@ -7,11 +7,14 @@ import com.fullstackproject.repositories.CommentRepository;
 import com.fullstackproject.repositories.JokeRepository;
 import com.fullstackproject.service.CommentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -48,5 +51,22 @@ public class CommentServiceImpl implements CommentService {
 
         commentRepository.save(comment);
         return comment;
+    }
+
+    @Override
+    public ResponseEntity<?> deleteCommentById(String id) {
+        Optional<Comment> comment = this.commentRepository.findById(id);
+        if (comment.isEmpty()) {
+            return ResponseEntity.status(401).build();
+        }
+
+        String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!principal.equals(comment.get().getOwnerOfComment())) {
+            return ResponseEntity.status(401).build();
+        }
+
+        this.commentRepository.deleteById(id);
+
+        return ResponseEntity.status(200).body(comment);
     }
 }

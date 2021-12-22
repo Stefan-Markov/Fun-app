@@ -2,16 +2,10 @@ package com.fullstackproject.web;
 
 import com.fullstackproject.errorHandling.ErrorRest;
 import com.fullstackproject.models.entities.Comment;
-import com.fullstackproject.models.entities.Joke;
-import com.fullstackproject.models.entities.Likes;
 import com.fullstackproject.models.dto.CommentDto;
-import com.fullstackproject.repositories.CommentRepository;
-import com.fullstackproject.repositories.JokeRepository;
-import com.fullstackproject.repositories.LikeRepository;
-import com.fullstackproject.repositories.UserRepository;
 import com.fullstackproject.security.rolesAuth.IsProfileUser;
 import com.fullstackproject.service.CommentService;
-import org.modelmapper.ModelMapper;
+import com.fullstackproject.service.LikeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,18 +25,11 @@ import static com.fullstackproject.constants.Constants.API_HOST;
 @CrossOrigin(API_HOST)
 public class CommentAndLikesController {
 
-    private final CommentRepository commentRepository;
-    private final JokeRepository jokeRepository;
-    private final LikeRepository likeRepository;
+    private final LikeService likeService;
     private final CommentService commentService;
 
-
-    public CommentAndLikesController(CommentRepository commentRepository,
-                                     JokeRepository jokeRepository, LikeRepository likeRepository,
-                                     CommentService commentService) {
-        this.commentRepository = commentRepository;
-        this.jokeRepository = jokeRepository;
-        this.likeRepository = likeRepository;
+    public CommentAndLikesController(LikeService likeService, CommentService commentService) {
+        this.likeService = likeService;
         this.commentService = commentService;
     }
 
@@ -58,7 +45,6 @@ public class CommentAndLikesController {
         ErrorRest errorRest = getErrors(bindingResult, errors);
         if (errorRest != null) return errorRest;
 
-
         Comment comment = this.commentService.addCommentToJoke(jokeId, commentDto);
         return ResponseEntity.status(200).body(comment);
 
@@ -66,7 +52,6 @@ public class CommentAndLikesController {
 
     private ErrorRest getErrors(BindingResult bindingResult, ErrorRest errorRest) {
         if (bindingResult.hasErrors()) {
-
             List<FieldError> errors = bindingResult.getFieldErrors();
             List<String> message = new ArrayList<>();
             for (FieldError e : errors) {
@@ -83,30 +68,14 @@ public class CommentAndLikesController {
     @DeleteMapping("/add/comment/:{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteCommentById(@PathVariable String id) {
-        Comment comment = this.commentRepository.findById(id).get();
-
-        String principal = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (!principal.equals(comment.getOwnerOfComment())) {
-            return ResponseEntity.status(401).build();
-        }
-
-        this.commentRepository.deleteById(id);
-
-        return ResponseEntity.status(200).body(comment);
+        return this.commentService.deleteCommentById(id);
     }
 
     @PostMapping("/add/like/:{id}/:{username}")
     @PreAuthorize("isAuthenticated()")
     @IsProfileUser
     public ResponseEntity<?> addLike(@PathVariable String id, @PathVariable String username) {
-
-        Joke joke = this.jokeRepository.findById(id).get();
-        Likes like = new Likes();
-        like.setOwnerOfComment(username);
-        like.setJoke(joke);
-
-        this.likeRepository.save(like);
-        return ResponseEntity.status(200).build();
+        return this.likeService.addLikeToJokeByIdAndUsername(id, username);
     }
 
     private ErrorRest checkForAuthor(CommentDto commentDto, ErrorRest errorRest) {
@@ -120,5 +89,4 @@ public class CommentAndLikesController {
         }
         return null;
     }
-
 }
